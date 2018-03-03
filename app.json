@@ -1,0 +1,56 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/trave/trave",
+    "pages/read/read",
+    "pages/photo/photo",
+    "pages/about/about"
+  ],
+  "window": {
+    "backgroundTextStyle": "back",
+    "navigationBarBackgroundColor": "#212121",
+    "navigationBarTitleText": "记小栈",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "f8f8f8"
+  },
+  "tabBar": {
+    "backgroundColor": "#fff",
+    "color": "#333",
+    "selectedColor": "#d1a47d",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "文记",
+        "iconPath": "/images/article.png",
+        "selectedIconPath": "/images/article_select.png"
+      },
+      {
+        "pagePath": "pages/trave/trave",
+        "text": "游记",
+        "iconPath": "/images/train.png",
+        "selectedIconPath": "/images/train_select.png"
+      },
+      {
+        "pagePath": "pages/photo/photo",
+        "text": "图记",
+        "iconPath": "/images/photo.png",
+        "selectedIconPath": "/images/photo_select.png"
+      },
+      {
+        "pagePath": "pages/read/read",
+        "text": "阅记",
+        "iconPath": "/images/book.png",
+        "selectedIconPath": "/images/book_select.png"
+      },
+      {
+        "pagePath": "pages/about/about",
+        "text": "关于",
+        "iconPath": "/images/about.png",
+        "selectedIconPath": "/images/about_select.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 10000
+  }
+}
