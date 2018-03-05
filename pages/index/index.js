@@ -1,7 +1,8 @@
 import Request from '../../utils/request';
 import { Host } from '../../config/index';
+import { formatTime } from '../../utils/util';
 //获取应用实例
-const app = getApp()
+const App = getApp()
 
 Page({
     data: {
@@ -10,7 +11,9 @@ Page({
         canIUse: wx.canIUse('button.open-type.getUserInfo'),
         banners: [],
         tags: [],
-        tag: ''
+        articles: [],
+        curTagId: '',
+        isShowFixedTag: false
     },
     onLoad: function() {
         // if (app.globalData.userInfo) {
@@ -42,11 +45,27 @@ Page({
     },
     onShow: function() {
         this.getBanner();
-        this.getArticles(1, null);
+        this.getArticles(1, '');
         this.getAllTags();
     },
+    onReachBottom: function() {
+        const { allPage, page, curTagId } = this.data;
+        if (page < allPage) {
+            this.getArticles(page + 1, curTagId);
+        }
+    },
+    onPageScroll: function({scrollTop}) {
+        if ((scrollTop > 200) && !this.data.isShowFixedTag ) {
+            this.setData({
+                isShowFixedTag: true
+            })
+        } else if ( (scrollTop < 200) && this.data.isShowFixedTag ) {
+            this.setData({
+                isShowFixedTag: false
+            })
+        }
+    },
     getUserInfo: function(e) {
-        console.log(e)
         app.globalData.userInfo = e.detail.userInfo
         this.setData({
             userInfo: e.detail.userInfo,
@@ -74,6 +93,7 @@ Page({
             })
     },
     getArticles: function(page, tagid) {
+
         Request.get(`${Host}/get/publish/articles`, {
             params: {
                 tag: tagid || '',
@@ -82,12 +102,28 @@ Page({
             }
         })
         .then( res => {
+            res.articles = res.articles.map(article => {
+                article.date = formatTime(article.createTime);
+
+                return article;
+            });
             this.setData({
-                articles: res.articles,
+                articles: page == 1 ? res.articles : this.data.articles.concat(res.articles),
                 curTagId: tagid,
                 allNum: res.allNum,
-                page: res.page
+                page: res.page,
+                allPage: res.allPage
             })
+        })
+    },
+    changeTag: function(event) {
+        let id = event.currentTarget.dataset.id;
+        this.getArticles(1, id);
+    },
+    goToArticle: function(event) {
+        let articleId = event.currentTarget.dataset.id;
+        wx.navigateTo({
+            url: `/pages/article/article?id=${articleId}`
         })
     }
 })

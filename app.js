@@ -1,4 +1,8 @@
 //app.js
+let SystemInfo = {};
+try {
+  SystemInfo = wx.getSystemInfoSync();
+} catch (e) {}
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -32,8 +36,10 @@ App({
         }
       }
     })
+
   },
   globalData: {
     userInfo: null,
+    SystemInfo
   }
 })

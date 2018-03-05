@@ -4,7 +4,8 @@
     "pages/trave/trave",
     "pages/read/read",
     "pages/photo/photo",
-    "pages/about/about"
+    "pages/about/about",
+    "pages/article/article"
   ],
   "window": {
     "backgroundTextStyle": "back",
