@@ -1,22 +1,25 @@
+import Request from '../../utils/request';
 import { Host } from '../../config/index';
 import { formatTime } from '../../utils/util';
-import Request from '../../utils/request';
-import _Towxml from '../../utils//towxml/main';
-// pages/article/article.js
-const Towxml = new _Towxml();
+//获取应用实例
+const App = getApp()
+// pages/trave.js
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
+        page: 1,
+        allPage: 1,
+        travels: []
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        this.options = options;
+        this.getArticles(1);
     },
 
     /**
@@ -30,39 +33,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function() {
-        wx.showLoading({
-            title: '加载中....',
-            mask: true
-        });
-        Request.get(`${Host}/get/article/${this.options.id}`, {
-                params: {
-                    filter: "weapp"
-                }
-            })
-            .then(res => {
-                let that = this;
-                let article = res.article;
 
-                article.htmlContent = Towxml.toJson(article.content, 'markdown');
-                article.date = this.formatTime(article.createTime);
-
-                this.setData({
-                    article: article
-                }, () => {
-                    wx.hideLoading();
-                });
-            })
-
-        Request.get(`${Host}/get/comments`, {
-                params: {
-                    articleid: this.options.id
-                }
-            })
-            .then(res => {
-                this.setData({
-                    comments: res.comments
-                })
-            })
     },
 
     /**
@@ -99,7 +70,28 @@ Page({
     onShareAppMessage: function() {
 
     },
-    formatTime: time => {
+    getArticles: function(_page) {
+        Request.get(`${Host}/get/publish/articles`, {
+            params: {
+                category: 'TRAVEL',
+                page: _page,
+            }
+        })
+        .then(res => {
+            res.articles.forEach( article => {
+                article.date = this.formatTime(article.createTime);
+            });
+
+            let articles = this.data.travels.concat(res.articles);
+
+            this.setData({
+                travels: articles,
+                page: res.page,
+                allPage: res.allPage
+            })
+        });
+    },
+    formatTime: function(time) {
         const date = new Date(time);
         const year = date.getFullYear();
         const month = date.getMonth() + 1;

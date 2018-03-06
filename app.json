@@ -1,7 +1,7 @@
 {
   "pages": [
+    "pages/travel/travel",
     "pages/index/index",
-    "pages/trave/trave",
     "pages/read/read",
     "pages/photo/photo",
     "pages/about/about",
@@ -26,7 +26,7 @@
         "selectedIconPath": "/images/article_select.png"
       },
       {
-        "pagePath": "pages/trave/trave",
+        "pagePath": "pages/travel/travel",
         "text": "游记",
         "iconPath": "/images/train.png",
         "selectedIconPath": "/images/train_select.png"

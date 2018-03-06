@@ -1,7 +1,15 @@
 <!--pages/article/article.wxml-->
-<import src="../../utils/wxParse/wxParse.wxml"/>
+<import src="../../utils//towxml/entry.wxml"/>
 
 <view class="article-layout">
-	<view class="article-title"></view>
-	<template is="wxParse" data="{{wxParseData: htmlContent.nodes}}"/>
+	<view class="article-title"><view class="article-titlep"><view class="article-titleem">{{article.title}}</view></view></view>
+	<view class="article-desc">
+		<view class="item"><text class="iconfont icon-date" /><text class="txt">{{article.date}}</text></view>
+		<view class="item">
+			<text class="iconfont icon-cc-tag" />
+			<text class="txt" wx:for="{{article.tags}}" wx:key="{{item.id}}">{{item.name}}</text>
+		</view>
+		<view class="item"><text class="iconfont icon-visit" /><text class="txt">{{article.visited}}</text></view>
+	</view>
+	<template is="entry" data="{{...article.htmlContent}}"/>
 </view>
