@@ -28,6 +28,7 @@
 
 .read-layout .text-wrap-p text {
 	background-color:  #B6BABD;
+	line-height: 1;
 }
 
 .read-layout .book-item {
