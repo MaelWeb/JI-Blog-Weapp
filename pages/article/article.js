@@ -30,39 +30,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function() {
-        wx.showLoading({
-            title: '加载中....',
-            mask: true
-        });
-        Request.get(`${Host}/get/article/${this.options.id}`, {
-                params: {
-                    filter: "weapp"
-                }
-            })
-            .then(res => {
-                let that = this;
-                let article = res.article;
-
-                article.htmlContent = Towxml.toJson(article.content, 'markdown');
-                article.date = this.formatTime(article.createTime);
-
-                this.setData({
-                    article: article
-                }, () => {
-                    wx.hideLoading();
-                });
-            })
-
-        Request.get(`${Host}/get/comments`, {
-                params: {
-                    articleid: this.options.id
-                }
-            })
-            .then(res => {
-                this.setData({
-                    comments: res.comments
-                })
-            })
+        this.getArticle();
     },
 
     /**
@@ -83,7 +51,7 @@ Page({
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh: function() {
-
+        this.getArticle();
     },
 
     /**
@@ -98,6 +66,42 @@ Page({
      */
     onShareAppMessage: function() {
 
+    },
+    getArticle: function() {
+        wx.showLoading({
+            title: '加载中....',
+            mask: true
+        });
+        Request.get(`${Host}/get/article/${this.options.id}`, {
+                params: {
+                    filter: "weapp"
+                }
+            })
+            .then(res => {
+                let that = this;
+                let article = res.article;
+
+                article.htmlContent = Towxml.toJson(article.content, 'markdown');
+                article.date = this.formatTime(article.createTime);
+
+                this.setData({
+                    article: article
+                }, () => {
+                    wx.hideLoading();
+                    wx.stopPullDownRefresh();
+                });
+            })
+
+        Request.get(`${Host}/get/comments`, {
+                params: {
+                    articleid: this.options.id
+                }
+            })
+            .then(res => {
+                this.setData({
+                    comments: res.comments
+                })
+            })
     },
     formatTime: time => {
         const date = new Date(time);

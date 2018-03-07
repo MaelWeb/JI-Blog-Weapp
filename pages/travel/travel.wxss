@@ -9,7 +9,7 @@
 .travel-header:after {
     position: absolute;
     left: 50%;
-    bottom: -10rpx;
+    bottom: -15rpx;
     padding: 6rpx 12rpx;
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
@@ -27,6 +27,7 @@
 .travel-header image {
     width: 100%;
     height: 400rpx;
+    display: block;
 }
 
 .travel-layout .aticle-info {
@@ -91,7 +92,7 @@
 
 .travel-article-item_title {
 	position: absolute;
-    bottom: 20rpx;
+    bottom: 25rpx;
     left: 0;
     padding: 0 15rpx;
     width: 100%;

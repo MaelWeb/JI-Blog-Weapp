@@ -185,9 +185,9 @@ class towxml {
 	newLabel(labelName) {
 		let temp = 'view';
 		switch (labelName) {
-			case 'a':
-				temp = 'navigator';
-				break;
+			// case 'a':
+			// 	temp = 'navigator';
+			// 	break;
 			case 'span':
 			case 'b':
 			case 'strong':

@@ -2,6 +2,7 @@
 
 .index-swiper {
     height: 200px;
+    background-color: #ccc;
 }
 
 .swiper-item {

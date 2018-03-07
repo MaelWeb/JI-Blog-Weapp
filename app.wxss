@@ -177,6 +177,10 @@ page {
     text-align: center;
 }
 
+.tr {
+    text-align: right;
+}
+
 .middle-text {
     padding: 40rpx 3% 80rpx;
 }

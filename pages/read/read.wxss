@@ -1,1 +1,95 @@
 /* pages/read.wxss */
+.read-layout {
+
+}
+
+.read-layout .read-header {
+	position: relative;
+	height: 800rpx;
+}
+
+.read-layout .read-header image {
+	height: 100%;
+	width: 100%;
+	display: block;
+}
+
+.read-layout .text-wrap {
+	position: absolute;
+    top: 19%;
+    left: 33%;
+    width: 42%;
+    line-height: 1.8;
+    color: #555;
+    box-sizing: border-box;
+    font-family: STFangsong,Fangsong,FangSong_GB2312,STSong,serif;
+    text-align: justify;
+}
+
+.read-layout .text-wrap-p text {
+	background-color:  #B6BABD;
+}
+
+.read-layout .book-item {
+	position: relative;
+	margin: 20rpx;
+    height: 295rpx;
+    padding: 20rpx;
+    background-color: #fff;
+    border: 1rpx solid #f2f2eb;
+    overflow: hidden;
+    display: flex;
+}
+
+.read-layout image {
+	width: 200rpx;
+	height: 100%;
+	box-shadow: 1px 1px 2px #aaa;
+}
+
+.read-layout .books-body {
+	padding-left: 20rpx;
+	flex: 1;
+}
+
+.read-layout .book-item-title {
+	font-size: 28rpx;
+    font-weight: 700;
+    margin-bottom: 10rpx;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    max-height: 84rpx;
+    color: #825d5b;
+}
+.read-layout .book-item-author {
+	font-size: 24rpx;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #afafaf;
+}
+
+.book-item-desc {
+	margin: 7px 0;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    max-height: 170rpx;
+    color: #666;
+}
+
+.book-item-reading {
+	position: absolute;
+    top: 24rpx;
+    right: -61rpx;
+    padding: 0 60rpx;
+    content: "Reading";
+    background-color: #d1a47d;
+    color: #fff;
+    font-size: 20rpx;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}

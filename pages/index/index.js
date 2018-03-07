@@ -16,6 +16,9 @@ Page({
         isShowFixedTag: false
     },
     onLoad: function() {
+        this.getBanner();
+        this.getArticles(1, '');
+        this.getAllTags();
         // if (app.globalData.userInfo) {
         //   this.setData({
         //     userInfo: app.globalData.userInfo,
@@ -44,13 +47,17 @@ Page({
         // }
     },
     onShow: function() {
-        this.getBanner();
-        this.getArticles(1, '');
-        this.getAllTags();
+    },
+    /**
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
+    onPullDownRefresh: function() {
+        const { curTagId } = this.data;
+        this.getArticles(1, curTagId)
     },
     onReachBottom: function() {
         const { allPage, page, curTagId } = this.data;
-        if (page < allPage) {
+        if (page < allPage && !this.isLoading ) {
             this.getArticles(page + 1, curTagId);
         }
     },
@@ -93,7 +100,11 @@ Page({
             })
     },
     getArticles: function(page, tagid) {
-
+        this.isLoading = true;
+        wx.showLoading({
+            title: '加载中....',
+            mask: true
+        });
         Request.get(`${Host}/get/publish/articles`, {
             params: {
                 tag: tagid || '',
@@ -113,7 +124,9 @@ Page({
                 allNum: res.allNum,
                 page: res.page,
                 allPage: res.allPage
-            })
+            });
+            this.isLoading = false;
+            wx.hideLoading();
         })
     },
     changeTag: function(event) {

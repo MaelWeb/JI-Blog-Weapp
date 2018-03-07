@@ -54,14 +54,17 @@ Page({
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh: function() {
-
+        this.getArticles(1)
     },
 
     /**
      * 页面上拉触底事件的处理函数
      */
     onReachBottom: function() {
-
+        const { allPage, page } = this.data;
+        if (page < allPage && !this.isLoading ) {
+            this.getArticles(page + 1);
+        }
     },
 
     /**
@@ -70,11 +73,16 @@ Page({
     onShareAppMessage: function() {
 
     },
-    getArticles: function(_page) {
+    getArticles: function(page) {
+        this.isLoading = true;
+        wx.showLoading({
+            title: '加载中....',
+            mask: true
+        });
         Request.get(`${Host}/get/publish/articles`, {
             params: {
                 category: 'TRAVEL',
-                page: _page,
+                page: page,
             }
         })
         .then(res => {
@@ -85,10 +93,13 @@ Page({
             let articles = this.data.travels.concat(res.articles);
 
             this.setData({
-                travels: articles,
+                travels: page == 1 ? res.articles : articles,
                 page: res.page,
                 allPage: res.allPage
-            })
+            });
+            this.isLoading = false;
+            wx.hideLoading();
+            wx.stopPullDownRefresh();
         });
     },
     formatTime: function(time) {
