@@ -1,10 +1,10 @@
 {
   "pages": [
+    "pages/index/index",
+    "pages/about/about",
     "pages/read/read",
     "pages/photo/photo",
     "pages/travel/travel",
-    "pages/index/index",
-    "pages/about/about",
     "pages/article/article"
   ],
   "window": {
@@ -13,7 +13,8 @@
     "navigationBarTitleText": "记小栈",
     "navigationBarTextStyle": "white",
     "backgroundColor": "f8f8f8",
-    "enablePullDownRefresh": true
+    "enablePullDownRefresh": true,
+    "onReachBottomDistance": 80
   },
   "tabBar": {
     "backgroundColor": "#fff",

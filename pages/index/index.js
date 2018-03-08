@@ -16,6 +16,10 @@ Page({
         isShowFixedTag: false
     },
     onLoad: function() {
+        wx.showLoading({
+            title: '加载中....',
+            mask: true
+        });
         this.getBanner();
         this.getArticles(1, '');
         this.getAllTags();
@@ -101,10 +105,6 @@ Page({
     },
     getArticles: function(page, tagid) {
         this.isLoading = true;
-        wx.showLoading({
-            title: '加载中....',
-            mask: true
-        });
         Request.get(`${Host}/get/publish/articles`, {
             params: {
                 tag: tagid || '',

@@ -14,6 +14,10 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
+        wx.showLoading({
+            title: '加载中....',
+            mask: true
+        });
         this.getBooks(1);
         this.getBanners();
     },
@@ -83,10 +87,10 @@ Page({
     },
     getBooks: function(page) {
         this.isLoading = true;
-        wx.showLoading({
-            title: '加载中....',
-            mask: true
-        });
+        // wx.showLoading({
+        //     title: '加载中....',
+        //     mask: true
+        // });
         Request.get(`${Host}/get/books`, {
             params: {
                 page: page,

@@ -19,7 +19,7 @@
     top: 19%;
     left: 33%;
     width: 42%;
-    line-height: 1.8;
+    line-height: 1.9;
     color: #555;
     box-sizing: border-box;
     font-family: STFangsong,Fangsong,FangSong_GB2312,STSong,serif;

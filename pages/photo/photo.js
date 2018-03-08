@@ -19,6 +19,10 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
+        wx.showLoading({
+            title: '加载中....',
+            mask: true
+        });
         this.getPhotos(1);
     },
 
@@ -72,10 +76,10 @@ Page({
     },
     getPhotos(page) {
         this.isloading = true;
-        wx.showLoading({
-            title: '加载中....',
-            mask: true
-        });
+        // wx.showLoading({
+        //     title: '加载中....',
+        //     mask: true
+        // });
         Request.get(`${Host}/get/photoes`, { params: { page } })
             .then(res => {
                 let photoUrls = [],

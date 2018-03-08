@@ -182,7 +182,7 @@ page {
 }
 
 .middle-text {
-    padding: 40rpx 3% 80rpx;
+    padding: 40rpx 3% 60rpx;
 }
 
 .middle-text-h2 {
