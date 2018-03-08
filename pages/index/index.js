@@ -50,8 +50,7 @@ Page({
         //   })
         // }
     },
-    onShow: function() {
-    },
+    onShow: function() {},
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
@@ -61,16 +60,16 @@ Page({
     },
     onReachBottom: function() {
         const { allPage, page, curTagId } = this.data;
-        if (page < allPage && !this.isLoading ) {
+        if (page < allPage && !this.isLoading) {
             this.getArticles(page + 1, curTagId);
         }
     },
-    onPageScroll: function({scrollTop}) {
-        if ((scrollTop > 200) && !this.data.isShowFixedTag ) {
+    onPageScroll: function({ scrollTop }) {
+        if ((scrollTop > 200) && !this.data.isShowFixedTag) {
             this.setData({
                 isShowFixedTag: true
             })
-        } else if ( (scrollTop < 200) && this.data.isShowFixedTag ) {
+        } else if ((scrollTop < 200) && this.data.isShowFixedTag) {
             this.setData({
                 isShowFixedTag: false
             })
@@ -85,19 +84,19 @@ Page({
     },
     getBanner: function() {
         Request.get(`${Host}/get/banners`, {
-            params: {
-                page: 'HOME'
-            }
-        })
-        .then( res => {
-            this.setData({
-                banners: res.banners
-            });
-        })
+                params: {
+                    page: 'HOME'
+                }
+            })
+            .then(res => {
+                this.setData({
+                    banners: res.banners
+                });
+            })
     },
     getAllTags: function() {
         Request.get(`${Host}/get/alltags`)
-            .then( res => {
+            .then(res => {
                 this.setData({
                     tags: res.tags.slice(0, 9)
                 })
@@ -106,28 +105,28 @@ Page({
     getArticles: function(page, tagid) {
         this.isLoading = true;
         Request.get(`${Host}/get/publish/articles`, {
-            params: {
-                tag: tagid || '',
-                category: 'DEFAULT',
-                page
-            }
-        })
-        .then( res => {
-            res.articles = res.articles.map(article => {
-                article.date = formatTime(article.createTime);
+                params: {
+                    tag: tagid || '',
+                    category: 'DEFAULT',
+                    page
+                }
+            })
+            .then(res => {
+                res.articles = res.articles.map(article => {
+                    article.date = formatTime(article.createTime);
 
-                return article;
-            });
-            this.setData({
-                articles: page == 1 ? res.articles : this.data.articles.concat(res.articles),
-                curTagId: tagid,
-                allNum: res.allNum,
-                page: res.page,
-                allPage: res.allPage
-            });
-            this.isLoading = false;
-            wx.hideLoading();
-        })
+                    return article;
+                });
+                this.setData({
+                    articles: page == 1 ? res.articles : this.data.articles.concat(res.articles),
+                    curTagId: tagid,
+                    allNum: res.allNum,
+                    page: res.page,
+                    allPage: res.allPage
+                });
+                this.isLoading = false;
+                wx.hideLoading();
+            })
     },
     changeTag: function(event) {
         let id = event.currentTarget.dataset.id;
@@ -137,6 +136,22 @@ Page({
         let articleId = event.currentTarget.dataset.id;
         wx.navigateTo({
             url: `/pages/article/article?id=${articleId}`
-        })
+        });
+    },
+    swiperTap: function(event) {
+        let href = event.currentTarget.dataset.href,
+            localHost = /www\.liayal.com\/article\//g;
+
+        if (localHost.test(href)) {
+            let hrefArray = href.split('www.liayal.com/article/');
+            wx.navigateTo({
+                url: `/pages/article/article?id=${hrefArray[1]}`
+            });
+        } else {
+            wx.showToast({
+                title: '外部链接，无法在小程序查看',
+                icon: 'none'
+            })
+        }
     }
 })

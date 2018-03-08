@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="index-layout">
     <swiper class="index-swiper">
-        <swiper-item class="swiper-item" wx:for="{{banners}}" wx:for-item="banner" wx:for-index="idx" wx:key="{{idx}}">
+        <swiper-item class="swiper-item" wx:for="{{banners}}" wx:for-item="banner" wx:for-index="idx" wx:key="{{idx}}" data-href="{{banner.href}}" bindtap="swiperTap">
             <image mode="aspectFill" src="{{'https:' + banner.url }}" />
             <text hidden="{{!banner.text.length}}">{{banner.text[0]}}</text>
         </swiper-item>
