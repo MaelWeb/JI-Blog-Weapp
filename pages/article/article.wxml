@@ -1,7 +1,8 @@
 <!--pages/article/article.wxml-->
 <import src="../../utils//towxml/entry.wxml"/>
+<import src="./article-loading.wxml"/>
 
-<view class="article-layout">
+<view class="article-layout" hidden="{{!article}}">
 	<view class="article-title"><view class="article-titlep"><view class="article-titleem">{{article.title}}</view></view></view>
 	<view class="article-desc">
 		<view class="item"><text class="iconfont icon-date" /><text class="txt">{{article.date}}</text></view>
@@ -13,3 +14,4 @@
 	</view>
 	<template is="entry" data="{{...article.htmlContent}}"/>
 </view>
+<template is="ArticleLoading" data="{{isShow: !article}}"/>
