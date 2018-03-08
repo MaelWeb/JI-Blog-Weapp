@@ -71,7 +71,10 @@ Page({
      * 用户点击右上角分享
      */
     onShareAppMessage: function() {
-
+        return {
+            title: '「JI · 记小栈」- 阅记',
+            path: '/pages/read/read',
+        }
     },
     getBanners: function() {
         Request.get(`${Host}/get/banners`, {

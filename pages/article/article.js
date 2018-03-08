@@ -65,7 +65,11 @@ Page({
      * 用户点击右上角分享
      */
     onShareAppMessage: function() {
-
+        return {
+            title: `${this.data.article.title} - 「JI · 记小栈」`,
+            path: `/pages/article/articlei?id=${this.options.id}`,
+            imageUrl: this.data.article && this.data.article.banner ? this.data.article.banner : "https://cdn.liayal.com/article/article_default_banner.jpg"
+        }
     },
     getArticle: function() {
         wx.showLoading({

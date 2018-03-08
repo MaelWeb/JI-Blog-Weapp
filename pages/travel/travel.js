@@ -75,7 +75,11 @@ Page({
      * 用户点击右上角分享
      */
     onShareAppMessage: function() {
-
+        return {
+            title: '「JI · 记小栈」- 游记',
+            path: '/pages/travel/travel',
+            // imageUrl: this.data.travels[0] ? 'https:' + this.data.travels[0].banner : 'https://cdn.liayal.com/12027196.jpg'
+        }
     },
     getArticles: function(page) {
         this.isLoading = true;

@@ -64,6 +64,15 @@ Page({
             this.getArticles(page + 1, curTagId);
         }
     },
+    /**
+     * 用户点击右上角分享
+     */
+    onShareAppMessage: function() {
+        return {
+            title: '「JI · 记小栈」',
+            path: '/pages/index/index',
+        }
+    },
     onPageScroll: function({ scrollTop }) {
         if ((scrollTop > 200) && !this.data.isShowFixedTag) {
             this.setData({

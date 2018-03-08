@@ -72,7 +72,11 @@ Page({
      * 用户点击右上角分享
      */
     onShareAppMessage: function() {
-
+        return {
+            title: '「JI · 记小栈」- 图记',
+            path: '/pages/photo/photo',
+            // imageUrl: this.data.photos[0] ? this.data.photos[0].src : 'https://cdn.liayal.com/14506926.jpg'
+        }
     },
     getPhotos(page) {
         this.isloading = true;
