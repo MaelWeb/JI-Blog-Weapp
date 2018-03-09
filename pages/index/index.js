@@ -135,6 +135,7 @@ Page({
                 });
                 this.isLoading = false;
                 wx.hideLoading();
+                wx.stopPullDownRefresh();
             })
     },
     changeTag: function(event) {
