@@ -10,7 +10,9 @@ Page({
         canIUse: wx.canIUse('button.open-type.getUserInfo'),
         banners: [],
         tags: [],
-        tag: ''
+        curTagId: '',
+        page: 1,
+        allNum: 0
     },
     onLoad: function() {
         // if (app.globalData.userInfo) {
@@ -84,7 +86,7 @@ Page({
         .then( res => {
             this.setData({
                 articles: res.articles,
-                curTagId: tagid,
+                curTagId: tagid || '',
                 allNum: res.allNum,
                 page: res.page
             })

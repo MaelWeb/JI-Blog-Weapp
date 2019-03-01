@@ -7,7 +7,8 @@
         </swiper-item>
     </swiper>
     <scroll-view class="tags-scroll" scroll-x="{{true}}" >
-        <text class="tags-item {{tag == '' ? 'tag-active' : ''}}" data-id="" >所有文章</text>
-        <text class="tags-item {{tag == item.id ? 'tag-active' : ''}}" wx:for="{{tags}}" data-id="{{item.id}}">{{item.name}}</text>
+        <text class="tags-item {{curTagId == '' ? 'tag-active' : ''}}" data-id="" >所有文章</text>
+        <text class="tags-item {{curTagId == item.id ? 'tag-active' : ''}}"  wx:for="{{tags}}" wx:for-item="tag" wx:key="{{tag.id}}" data-id="{{tag.id}}" >{{tag.name}}</text>
     </scroll-view>
+    
 </view>
