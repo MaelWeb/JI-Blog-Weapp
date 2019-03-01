@@ -1,7 +1,8 @@
 .index-layout {}
 
 .index-swiper {
-    height: 400rpx;
+    height: 200px;
+    background-color: #ccc;
 }
 
 .swiper-item {
@@ -34,6 +35,17 @@
     line-height: 1;
 }
 
+.tags-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin-top: 0;
+    padding-top: 15rpx;
+    background-color: #fff;
+    z-index: 2;
+}
+
 .tags-item {
     padding: 10rpx 15rpx;
     display: inline-block;
@@ -42,4 +54,33 @@
 .tag-active {
     color: #d1a47d;
     font-weight: 700;
+}
+
+.article-item {
+    padding: 10rpx;
+    display: flex;
+    border-bottom: 1rpx solid #ddd;
+    color: #333;
+}
+
+.article-banner {
+    width: 240rpx;
+    height: 140rpx;
+}
+
+.article-body {
+    padding: 10rpx 10rpx 0 20rpx;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.article-title {
+    font-size: 30rpx;
+    flex: 1;
+}
+
+.article-time {
+    font-size: 24rpx;
+    color: #ccc;
 }

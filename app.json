@@ -1,17 +1,20 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/trave/trave",
+    "pages/about/about",
     "pages/read/read",
     "pages/photo/photo",
-    "pages/about/about"
+    "pages/travel/travel",
+    "pages/article/article"
   ],
   "window": {
     "backgroundTextStyle": "back",
     "navigationBarBackgroundColor": "#212121",
     "navigationBarTitleText": "记小栈",
     "navigationBarTextStyle": "white",
-    "backgroundColor": "f8f8f8"
+    "backgroundColor": "f8f8f8",
+    "enablePullDownRefresh": true,
+    "onReachBottomDistance": 80
   },
   "tabBar": {
     "backgroundColor": "#fff",
@@ -25,7 +28,7 @@
         "selectedIconPath": "/images/article_select.png"
       },
       {
-        "pagePath": "pages/trave/trave",
+        "pagePath": "pages/travel/travel",
         "text": "游记",
         "iconPath": "/images/train.png",
         "selectedIconPath": "/images/train_select.png"
