@@ -1,0 +1,39 @@
+{
+  "name": "JI-Blog-Weapp",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "gulp --gulpfile gulpfile.js",
+    "start": "cross-env NODE_ENV=development gulp build",
+    "build": "cross-env NODE_ENV=production gulp build --production"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "css-aliases": "^1.1.9",
+    "del": "^4.0.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "gulp": "^4.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-changed": "^3.2.0",
+    "gulp-clean": "^0.4.0",
+    "gulp-csso": "^3.0.1",
+    "gulp-eslint": "^5.0.0",
+    "gulp-if": "^2.0.2",
+    "gulp-imagemin": "^5.0.3",
+    "gulp-insert": "^0.5.0",
+    "gulp-less": "^4.0.1",
+    "gulp-print": "^5.0.0",
+    "gulp-purgecss": "^1.1.1",
+    "gulp-purifycss": "^0.2.0",
+    "gulp-qiniu-utils": "^2.0.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-typescript": "^5.0.1",
+    "gulp-uglify-es": "^1.0.4",
+    "gulp-url-prefixer": "0.0.6",
+    "gulp-util": "^3.0.8",
+    "gulp-wechat-weapp-src-alisa": "^1.0.1",
+    "typescript": "^3.3.3333",
+    "typescript-tslint-plugin": "^0.3.1"
+  }
+}

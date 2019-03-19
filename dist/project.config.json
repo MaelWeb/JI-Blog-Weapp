@@ -1,0 +1,19 @@
+{
+	"description": "JI-Blog-Weapp",
+	"packOptions": {
+		"ignore": []
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.4.0",
+	"projectname": "JI-Blog-Weapp",
+	"setting": {
+		"urlCheck": true,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
+		"newFeature": true,
+		"autoAudits": false
+	},
+	"appid": "wx0a901e8730d610b2",
+	"condition": {}
+}
