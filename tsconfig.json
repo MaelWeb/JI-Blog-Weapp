@@ -2,8 +2,8 @@
   "compilerOptions": {
     "strictNullChecks": true,
     "noImplicitAny": true,
-    "module": "CommonJS",
-    "target": "ES5",
+    "module": "es6",
+    "target": "es6",
     "allowJs": false,
     "experimentalDecorators": true,
     "noImplicitThis": true,
@@ -18,19 +18,20 @@
     "removeComments": true,
     "pretty": true,
     "strictPropertyInitialization": true,
+    "esModuleInterop": true,
+    "lib": [ "es2015", "dom"],
     "typeRoots": [
-      "typings"
-    ],
-    "plugins": [
-      { "name": "typescript-tslint-plugin" }
+      "typings",
+      "node_modules/@types"
     ]
   },
   "include": [
-    "./**/*.ts", "src/libs/wxpage/wxpage.js"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules",
-    "miniprogram_dist",
+    "dist",
+    "gulp-plugins",
     "**/*.spec.ts"
   ]
 }

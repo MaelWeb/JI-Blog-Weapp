@@ -8,6 +8,7 @@
     "build": "cross-env NODE_ENV=production gulp build --production"
   },
   "devDependencies": {
+    "@types/node": "^12.7.8",
     "cross-env": "^5.2.0",
     "css-aliases": "^1.1.9",
     "del": "^4.0.0",
