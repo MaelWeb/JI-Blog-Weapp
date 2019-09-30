@@ -1,0 +1,80 @@
+.page-base {
+    min-height: 100vh;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    padding-bottom: 60rpx;
+
+    .titleBar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        display: block;
+        z-index: 999;
+    }
+
+    .menu {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        align-items: center;
+        font-weight: 500;
+        color: #3a3c42;
+        // justify-content: space-around;
+
+        .close {
+            position: absolute;
+            left: 30rpx;
+            padding: 20rpx;
+        }
+
+        .ji-blog {
+            margin: 20rpx 0 60rpx 0;
+            font-size: 44rpx;
+        }
+
+        .slogan {
+            position: relative;
+            padding: 40rpx 0 30rpx 0;
+            font-size: 24rpx;
+
+            &::after {
+                position: absolute;
+                left: 50%;
+                bottom: 0;
+                width: 60rpx;
+                height: 4rpx;
+                margin-left: -30rpx;
+                background-color: #3a3c42;
+                border-radius: 2rpx;
+                content: '';
+            }
+        }
+    }
+    @menu-item-height: 300rpx;
+    .menu-item {
+        margin-bottom: 60rpx;
+        width: @menu-item-height;
+        height: @menu-item-height;
+        border-radius: 100%;
+        text-align: center;
+        line-height: @menu-item-height;
+        background-color: #333;
+        color: #fff;
+
+        &.camera {
+            background-color: #baf1fc;
+        }
+
+        &.book {
+            background-color: #262e5b;
+        }
+
+        &.pen {
+            background-color: #4c80f8;
+        }
+    }
+}

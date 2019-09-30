@@ -1,0 +1,136 @@
+.index-layout {
+    position: relative;
+
+    .index-swiper {
+        padding: 60rpx 0 30rpx;
+        height: 600rpx;
+    }
+
+    .swiper-item {
+        position: relative;
+
+        .swiper-item-box {
+            position: relative;
+            margin: 0 20rpx;
+            height: 100%;
+            border-radius: 40rpx;
+            overflow: hidden;
+        }
+    }
+
+    &-header {
+        margin-left: 40rpx;
+        line-height: 1.5;
+    }
+
+    &-date {
+        font-weight: 500;
+        color: #fe7549;
+        font-size: 12px;
+    }
+
+    &-title {
+        font-size: 22px;
+        font-weight: 600;
+    }
+
+    &-menu {
+        margin: 8rpx 0 0 -6rpx;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .index-swiper c-image {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+
+    .index-swiper text {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        padding: 40rpx 60rpx 40rpx 40rpx;
+        color: #fff;
+        font-size: 40rpx;
+        font-weight: 500;
+        line-height: 1.5;
+    }
+
+    .tags-scroll {
+        width: 100%;
+        height: 132rpx;
+        font-size: 32rpx;
+        line-height: 1;
+        font-weight: 500;
+
+        .scroll-view {
+            width: 100%;
+            padding: 40rpx 40rpx 40rpx 25rpx;
+            white-space: nowrap;
+            box-sizing: border-box;
+            background-color: #fff;
+        }
+
+        .fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 2;
+        }
+    }
+
+    .tags-item {
+        padding: 10rpx 15rpx;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .tag-active {
+        color: #d1a47d;
+        font-weight: 700;
+    }
+
+    .article-list {
+        padding: 0 40rpx;
+    }
+
+    .article-item {
+        margin-bottom: 40rpx;
+        display: flex;
+        color: #181e1e;
+    }
+
+    .article-banner {
+        width: 140rpx;
+        height: 140rpx;
+        border-radius: 20rpx;
+        overflow: hidden;
+    }
+
+    .article-body {
+        padding: 10rpx 10rpx 0 30rpx;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .article-title {
+        margin-bottom: 10rpx;
+        font-size: 30rpx;
+        flex: 1;
+        font-weight: 500;
+    }
+
+    .article-time {
+        font-size: 24rpx;
+        color: #96a0a2;
+    }
+
+    .icon {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 10rpx;
+    }
+}

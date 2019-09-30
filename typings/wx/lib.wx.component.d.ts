@@ -33,6 +33,7 @@ declare interface PropertyOption {
   value: any;
   /** 属性值被更改时的响应函数 */
   observer?(
+    this: WxComponent,
     newVal?: any,
     oldVal?: any,
     changedPath?: Array<string | number>,
@@ -87,7 +88,7 @@ declare interface WxComponent extends BaseComponent {
   /** 检查组件是否具有 `behavior` （检查时会递归检查被直接或间接引入的所有behavior） */
   hasBehavior(behavior: object): void;
   /** 触发事件，参见组件事件 */
-  triggerEvent(name: string, detail: object, options: TriggerEventOption): void;
+  triggerEvent(name: string, detail?: object, options?: TriggerEventOption): void;
   /** 创建一个 SelectorQuery 对象，选择器选取范围为这个组件实例内 */
   createSelectorQuery(): wx.SelectorQuery;
   /** 创建一个 IntersectionObserver 对象，选择器选取范围为这个组件实例内 */
@@ -104,6 +105,7 @@ declare interface WxComponent extends BaseComponent {
   groupSetData(callback?: () => void): void;
   /** 返回当前页面的 custom-tab-bar 的组件实例 */
   getTabBar(): WxComponent;
+  [propertyName: string]: any;
 }
 
 declare interface ComponentLifetimes {
@@ -143,11 +145,11 @@ declare interface RelationOption {
   /** 目标组件的相对关系 */
   type: 'parent' | 'child' | 'ancestor' | 'descendant';
   /** 关系生命周期函数，当关系被建立在页面节点树中时触发，触发时机在组件attached生命周期之后 */
-  linked?(target: WxComponent): any;
+  linked?(this: WxComponent, target: WxComponent): any;
   /** 关系生命周期函数，当关系在页面节点树中发生改变时触发，触发时机在组件moved生命周期之后 */
-  linkChanged?(target: WxComponent): any;
+  linkChanged?(this: WxComponent, target: WxComponent): any;
   /** 关系生命周期函数，当关系脱离页面节点树时触发，触发时机在组件detached生命周期之后 */
-  unlinked?(target: WxComponent): any;
+  unlinked?(this: WxComponent, target: WxComponent): any;
   /** 如果这一项被设置，则它表示关联的目标节点所应具有的behavior，所有拥有这一behavior的组件节点都会被关联 */
   target?: string;
 }
@@ -173,7 +175,8 @@ declare interface BaseComponent extends ComponentLifetimes {
   observers?: IAnyObject;
   /** object组件的方法，包括事件响应函数和任意的自定义方法，关于事件响应函数的使用，参见 [组件事件](events.md) */
   methods?: {
-    [methodName: string]: (this: WxComponent) => any;
+    // [methodName: string]: (this: WxComponent) => any;
+    [methodName: string]: (this: WxComponent, ...args: any[]) => any;
   };
   /** 类似于mixins和traits的组件间代码复用机制，参见 [behaviors](behaviors.md) */
   behaviors?: string[];
@@ -211,3 +214,7 @@ declare interface BaseComponent extends ComponentLifetimes {
 declare function Component(
   /** 自定义组件注册参数 */ options: BaseComponent,
 ): void;
+
+declare function Behavior(
+  /** 自定义组件注册参数 */ options: BaseComponent,
+): string;

@@ -1,6 +1,14 @@
 //app.ts
+import * as Utils from '@Utils/util'
 export interface IMyApp {
-    userInfoReadyCallback?(res: wx.UserInfo): void
+    userInfoReadyCallback?(res: wx.UserInfo): void,
+    globalData?: {
+        SystemInfo: object,
+    }
 }
 
-App<IMyApp>({})
+App<IMyApp>({
+    globalData: {
+        SystemInfo: Utils.getSysInfo()
+    }
+})

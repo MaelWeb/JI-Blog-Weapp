@@ -77,6 +77,7 @@ function _join(dirname) {
 // 路径别名配置
 const aliasConfig = {
     '@Libs': _join('libs'),
+    '@Config': _join('config'),
     '@Utils': _join('utils'),
     '@Components': _join('components'),
     '@Style': _join('style'),

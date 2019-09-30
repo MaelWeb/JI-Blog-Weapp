@@ -1,0 +1,12 @@
+<!--components/business/Image/image.wxml-->
+<wxs module='urlFix'>
+    var getSrc = function (src) {
+        return src ? src.split('?')[0] + "?imageMogr2/auto-orient/thumbnail/180x/strip/format/jpg/blur/50x2/interlace/1/quality/20!/size-limit/4k!" : "https://cdn.liayal.com/image/img_loading.gif";
+    };
+
+    module.exports.getSrc = getSrc;
+</wxs>
+<view class="components-image exclass {{ hideMini ? 'components-image-hidden-mini' : ''}}" hidden="{{hidden}}" style="background-image: url('{{bgImg}}');{{ _style }}">
+	<!--image class="mini-image" style="" mode="{{ mode }}" src="{{ urlFix.getSrc(src) }}" bindload="onPreLoad"></image-->
+	<image class="origin-image" lazy-load="{{ lazyLoad }}" id="id_image_component" style="" mode="{{ mode }}" src="{{ _src }}" binderror="onLoadError" bindload="onLoad"></image>
+</view>

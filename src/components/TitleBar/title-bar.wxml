@@ -1,0 +1,11 @@
+<view class="title-bar"
+    style="padding-top: {{statusBarHeight}}px;background-color: {{bgColor}};">
+    <c-icon name="back"
+        wx:if="{{showReturn}}"
+        class="back"
+        color="{{iconColor}}"
+        bind:tap="navigateBack"
+        style="top: {{statusBarHeight}}px;" />
+    <view class="title" style="text-align:{{align}};" wx:if="{{!useSlot}}">{{title}}</view>
+    <slot></slot>
+</view>

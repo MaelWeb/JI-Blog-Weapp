@@ -4,16 +4,18 @@
 		"ignore": []
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.4.0",
+	"libVersion": "2.8.3",
 	"projectname": "JI-Blog-Weapp",
 	"setting": {
 		"urlCheck": true,
-		"es6": false,
-		"postcss": false,
+		"es6": true,
+		"postcss": true,
 		"minified": false,
 		"newFeature": true,
 		"autoAudits": false
 	},
 	"appid": "wx0a901e8730d610b2",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {}
 }

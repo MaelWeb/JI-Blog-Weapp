@@ -224,6 +224,8 @@ declare namespace App {
    * 最低基础库： 1.9.90
    */
   onPageNotFound?(options?: IPageNotFoundOption): void
+
+  [key: string]: any
   }
 
   interface AppConstructor {

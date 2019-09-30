@@ -1,0 +1,30 @@
+.title-bar {
+    position: relative;
+    width: 100%;
+    min-height: 44px;
+    color: #181e1e;
+    font-size: 34rpx;
+    z-index: 9;
+    transition: all .5s;
+
+    .back {
+        position: absolute;
+        left: 0rpx;
+        padding: 20rpx;
+        z-index: 1;
+    }
+
+    .title {
+        padding: 0 90px;
+        width: 100%;
+        height: 44px;
+        line-height: 44px;
+        font-weight: 500;
+
+        display: block;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+}

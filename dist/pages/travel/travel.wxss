@@ -1,0 +1,86 @@
+/* pages/travel.wxss */
+.travel-header {
+  position: relative;
+}
+.travel-header .arrow-icon {
+  position: absolute;
+  left: 50%;
+  bottom: -15rpx;
+  padding: 6rpx 12rpx;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  background-color: #fff;
+  border-radius: 80rpx 80rpx 0 0;
+  line-height: 1;
+}
+.travel-header c-image {
+  width: 100%;
+  height: 500rpx;
+  display: block;
+}
+.travel-layout .aticle-info {
+  position: absolute;
+  top: 61.8%;
+  left: 50%;
+  padding: 10rpx 20rpx;
+  -webkit-transform: translate(-50%, -48.2%);
+  transform: translate(-50%, -48.2%);
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.3);
+  font-size: 28rpx;
+  width: 85%;
+}
+.travel-layout .small {
+  margin-bottom: 10rpx;
+}
+.travel-layout .small text {
+  padding-bottom: 8rpx;
+  border-bottom: 4rpx solid #fff;
+  display: inline-block;
+}
+.travel-layout .aticle-info-h2 {
+  margin-bottom: 10rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.travel-layout .sub-title {
+  font-size: 24rpx;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.travel-article-list {
+  margin: 0 20rpx;
+}
+.travel-article-item {
+  position: relative;
+  width: 50%;
+  padding: 10rpx;
+  display: inline-block;
+  box-sizing: border-box;
+}
+.travel-article-item image {
+  width: 100%;
+  height: 200rpx;
+}
+.travel-article-item_title {
+  position: absolute;
+  bottom: 25rpx;
+  left: 0;
+  padding: 0 15rpx;
+  width: 100%;
+  color: #fff;
+  font-size: 18rpx;
+  box-sizing: border-box;
+}
+.travel-layout .strong {
+  font-size: 22rpx;
+  font-weight: 500;
+}

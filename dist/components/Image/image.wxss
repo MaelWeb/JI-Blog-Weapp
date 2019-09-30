@@ -1,0 +1,51 @@
+/* components/business/Image/image.wxss */
+.components-image {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: 0;
+  line-height: 1;
+  vertical-align: top;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: all 0.2s;
+  background-color: #e2e2e2;
+}
+.components-image-hidden-mini {
+  background: transparent !important;
+}
+.origin-image {
+  /*position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 1;*/
+  opacity: 0;
+  transition: all 0.2s;
+  /* height: 100% !important; */
+}
+.mini-image {
+  position: relative;
+  opacity: 1;
+  transition: opacity 0.2s 0.3s;
+}
+.origin-image,
+.mini-image {
+  margin: 0 auto !important;
+  padding: 0 auto !important;
+  width: 100%;
+  height: 100%;
+  line-height: 1;
+  display: block;
+  border: 0;
+}
+.components-image-hidden-mini .origin-image {
+  opacity: 1;
+}
+.components-image-hidden-mini .mini-image {
+  opacity: 0;
+}

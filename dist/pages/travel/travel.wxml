@@ -1,0 +1,45 @@
+<!--pages/trave.wxml-->
+<c-page title-config="{{titleConfig}}"
+    padding-top="0"
+    show-loading="{{showLoading}}">
+    <view class="travel-layout">
+        <view class="travel-header">
+            <navigator url="/pages/article/article?id={{travels[0].id}}&from=travel">
+                <c-image mode="aspectFill"
+                    src="{{ travels[0] ? 'https:' + travels[0].banner : 'https://cdn.liayal.com/12027196.jpg' }}" />
+                <view class="aticle-info">
+                    <view class="small">
+                        <text>游记</text>
+                    </view>
+                    <view class="aticle-info-h2">{{travels[0] ? travels[0].title : ''}}</view>
+                    <view class="sub-title">{{travels[0] ? travels[0].abstract : '' }}</view>
+                </view>
+            </navigator>
+            <c-icon class="arrow-icon"
+                name="arrow-down"
+                size="40rpx"
+                color="#000" />
+        </view>
+        <view class="middle-text tc">
+            <view class="middle-text-h2">我从旅行中获得乐趣</view>
+            <view class="middle-text-p">一个人，一条路，人在途中，心随景动，从起点，到尽头，也许快乐，或有时孤独，如果心在远方，只需勇敢前行，梦想自会引路，有多远，走多远，把足迹连成生命线。
+            </view>
+        </view>
+        <view class="travel-article-list">
+            <view class="travel-article-item"
+                wx:for="{{travels}}"
+                wx:for-index="idx"
+                wx:if="{{idx != 0}}"
+                wx:for-item="article"
+                wx:key="idx">
+                <navigator url="/pages/article/article?id={{article.id}}&from=travel">
+                    <c-image mode="aspectFill"
+                        src="{{ 'https:' + article.banner }}" />
+                    <view class="travel-article-item_title">
+                        <text class="strong">{{article.title}}</text> {{article.date}}
+                    </view>
+                </navigator>
+            </view>
+        </view>
+    </view>
+</c-page>
