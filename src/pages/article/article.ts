@@ -135,5 +135,8 @@ Page({
         const day = date.getDate()
 
         return `${year}年${month}月${day}日`;
+    },
+    __navigator_tap(e: event) {
+        console.log(e)
     }
 })

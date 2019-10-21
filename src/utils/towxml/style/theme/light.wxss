@@ -61,8 +61,8 @@
 }
 
 /**内连元素**/
-.h2w-light .h2w__a {
-    color: #1aad16;
+.h2w-light [data-url~=liayal] {
+    color: #4c80f8;
     border-color: #b9d9b8;
 }
 

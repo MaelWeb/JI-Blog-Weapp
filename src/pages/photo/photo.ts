@@ -78,11 +78,13 @@ Page({
                 let photos: Object[] = [];
                 let baseHeight = 100;
 
-                res.photos.map((photo: { src: string; key: string; width: number; w: number; height: number; }, ) => {
-                    photoUrls.push(photo.src);
+                res.photos.map((photo: { key: string; width: number; w: number; height: number; }, ) => {
+                    console.log(photo)
+                    const src = `https://cdn.liayal.com/${photo.key}`
+                    photoUrls.push(src);
                     photos.push({
                         ...photo,
-                        src: `https://cdn.liayal.com/${photo.key}`,
+                        src,
                         w: photo.width * baseHeight / photo.height,
                         paddingTop: photo.height / photo.width * 100
                     });
