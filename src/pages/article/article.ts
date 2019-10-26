@@ -1,6 +1,6 @@
 import { Host } from "@Config/index";
 import Request from "@Utils/request";
-import { rpxTopx } from "@Utils/util";
+import { rpxTopx, arrayChunk } from "@Utils/util";
 
 // pages/article/article.js
 type ResData = {
@@ -20,13 +20,18 @@ Page({
 		banner: "",
 		date: "",
 		title: "",
-		htmlContent: "",
+		htmlContent: {
+			node: 'root',
+			theme: 'light',
+			child: [],
+		},
 		tags: [],
 		$titleBarHeight: 44,
 	},
 	options: {
 		id: "",
 	},
+	_wxml: [],
 	layoutMarginTop: 0,
 	/**
 	 * 生命周期函数--监听页面加载
@@ -46,11 +51,11 @@ Page({
 	},
 	navigateTo(href: string) {
 		const site = 'https://www.liayal.com/article/'
-		if( href.indexOf(site) !== -1) {
+		if (href.indexOf(site) !== -1) {
 			wx.navigateTo({
 				url: `/pages/article/article?id=${href.split(site)[1]}`
 			})
-			
+
 		} else {
 			wx.showToast({
 				icon: 'none',
@@ -70,7 +75,7 @@ Page({
 				},
 			});
 		} else if (
-			option.scrollTop < (this.layoutMarginTop - this.data.$titleBarHeight)&&
+			option.scrollTop < (this.layoutMarginTop - this.data.$titleBarHeight) &&
 			titleConfig.title
 		) {
 			this.setData!({
@@ -118,20 +123,19 @@ Page({
 		}).then((res: ResData) => {
 			const { article, wxml } = res;
 			const { title, createTime, banner = '', tags = [] } = article;
+			this._wxml = arrayChunk(wxml, 100)
 			const date = this.formatTime(createTime);
-			console.log('article1' ,res)
+			console.log('article1', res.wxml)
 			this.setData!(
 				{
 					banner,
 					date,
 					title,
-					htmlContent: wxml,
+					'htmlContent.child[0]': this._wxml[0],
 					tags,
 				},
 				this.hideLoading
 			);
-			console.log('article2' ,res)
-
 		});
 
 		Request.get(`${Host}/get/comments`, {

@@ -10,7 +10,6 @@ class _Request {
                 data: config.params || {},
                 method: 'GET',
                 success(res: { [key: string]: any }) {
-                    console.log('http', res)
                     if (res.statusCode == 200) {
                         resolve(res.data);
                     } else {
