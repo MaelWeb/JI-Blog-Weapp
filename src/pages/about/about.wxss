@@ -1,6 +1,6 @@
 /* pages/about/about.wxss */
 .about-layout {
-	padding-bottom: 10rpx;
+	padding: 10rpx 0;
 }
 .about-layout image {
     margin-top: 10rpx;
@@ -20,7 +20,7 @@
 	flex: 1;
 }
 
-.about-module image {
+.about-module c-image {
 	margin-top: 0;
     width: 54%;
     display: block;

@@ -1,5 +1,5 @@
 <!--pages/article/article.wxml-->
-<import src="../../utils//towxml/entry.wxml" />
+<import src="./templates/entry.wxml" />
 
 <c-page title-config="{{titleConfig}}"
 	show-loading="{{showLoading}}">

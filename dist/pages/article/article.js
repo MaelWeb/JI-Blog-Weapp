@@ -1,67 +1,85 @@
-import { Host } from '../../config/index';
-import Request from '../../utils/request';
-import _Towxml from '../../utils/towxml/main';
-import { getOffsetInfo } from '../../utils/util';
-const Towxml = new _Towxml();
+import { Host } from "../../config/index";
+import Request from "../../utils/request";
+import { rpxTopx } from "../../utils/util";
 Page({
     data: {
         showLoading: false,
         titleConfig: {
-            bgColor: 'transparent',
-            iconColor: '#fff',
-            title: '',
+            bgColor: "transparent",
+            iconColor: "#fff",
+            title: "",
         },
-        banner: '',
-        date: '',
-        title: '',
-        htmlContent: '',
+        banner: "",
+        date: "",
+        title: "",
+        htmlContent: "",
         tags: [],
+        $titleBarHeight: 44,
     },
     options: {
-        id: '',
+        id: "",
     },
     layoutMarginTop: 0,
     onLoad(options) {
         this.options = options;
+        this.getArticle();
     },
     onReady() {
-        getOffsetInfo('.article-layout')
-            .then((dom) => {
-            this.layoutMarginTop = dom.top;
-        });
+        this.layoutMarginTop = rpxTopx(340);
+    },
+    __bind_tap(event) {
+        const href = event.currentTarget.dataset.url;
+        if (href) {
+            this.navigateTo(href);
+        }
+    },
+    navigateTo(href) {
+        const site = 'https://www.liayal.com/article/';
+        if (href.indexOf(site) !== -1) {
+            wx.navigateTo({
+                url: `/pages/article/article?id=${href.split(site)[1]}`
+            });
+        }
+        else {
+            wx.showToast({
+                icon: 'none',
+                title: '站外链接暂不支持，请至【JI-记小栈】网页版查看',
+                duration: 3000,
+            });
+        }
     },
     onPageScroll(option) {
         const { titleConfig } = this.data;
-        if (option.scrollTop > this.layoutMarginTop && !titleConfig.title) {
+        if (option.scrollTop > (this.layoutMarginTop - this.data.$titleBarHeight) && !titleConfig.title) {
             this.setData({
                 titleConfig: {
-                    bgColor: '#fff',
-                    iconColor: '#000',
+                    bgColor: "#fff",
+                    iconColor: "#000",
                     title: this.data.title,
                 },
             });
         }
-        else if (option.scrollTop < this.layoutMarginTop && titleConfig.title) {
+        else if (option.scrollTop < (this.layoutMarginTop - this.data.$titleBarHeight) &&
+            titleConfig.title) {
             this.setData({
                 titleConfig: {
-                    bgColor: 'transparent',
-                    iconColor: '#fff',
-                    title: '',
+                    bgColor: "transparent",
+                    iconColor: "#fff",
+                    title: "",
                 },
             });
         }
-    },
-    onShow() {
-        this.getArticle();
     },
     onPullDownRefresh() {
         this.getArticle();
     },
     onShareAppMessage() {
         return {
-            title: `${this.data.article.title} - 「JI · 记小栈」`,
-            path: `/pages/article/articlei?id=${this.options.id}`,
-            imageUrl: this.data.article && this.data.article.banner ? this.data.article.banner : "https://cdn.liayal.com/article/article_default_banner.jpg"
+            title: `${this.data.title} - 「JI · 记小栈」`,
+            path: `/pages/article/article?id=${this.options.id}`,
+            imageUrl: this.data.banner
+                ? this.data.banner
+                : "https://cdn.liayal.com/article/article_default_banner.jpg",
         };
     },
     getArticle() {
@@ -70,28 +88,29 @@ Page({
         });
         Request.get(`${Host}/get/article/${this.options.id}`, {
             params: {
-                filter: "weapp"
-            }
+                filter: "weapp",
+            },
         }).then((res) => {
-            let article = res.article;
-            const { title, content, createTime, banner, tags = [] } = article;
-            const htmlContent = Towxml.toJson(content, 'markdown');
+            const { article, wxml } = res;
+            const { title, createTime, banner = '', tags = [] } = article;
             const date = this.formatTime(createTime);
+            console.log('article1', res);
             this.setData({
                 banner,
                 date,
                 title,
-                htmlContent,
+                htmlContent: wxml,
                 tags,
             }, this.hideLoading);
+            console.log('article2', res);
         });
         Request.get(`${Host}/get/comments`, {
             params: {
-                articleid: this.options.id
-            }
+                articleid: this.options.id,
+            },
         }).then((res) => {
             this.setData({
-                comments: res.comments
+                comments: res.comments,
             });
         });
     },
@@ -106,5 +125,8 @@ Page({
         const month = date.getMonth() + 1;
         const day = date.getDate();
         return `${year}年${month}月${day}日`;
-    }
+    },
+    __navigator_tap(e) {
+        console.log(e);
+    },
 });

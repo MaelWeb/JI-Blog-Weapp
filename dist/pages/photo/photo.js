@@ -12,6 +12,7 @@ Page({
             iconColor: '#fff',
             title: '',
         },
+        $titleBarHeight: 44,
         showLoading: false,
     },
     bannerHeight: Utils.rpxTopx(500),
@@ -30,7 +31,7 @@ Page({
     },
     onPageScroll(option) {
         const { titleConfig } = this.data;
-        if (option.scrollTop > this.bannerHeight && !titleConfig.title) {
+        if (option.scrollTop > (this.bannerHeight - this.data.$titleBarHeight) && !titleConfig.title) {
             this.setData({
                 titleConfig: {
                     bgColor: '#fff',
@@ -39,7 +40,7 @@ Page({
                 },
             });
         }
-        else if (option.scrollTop < this.bannerHeight && titleConfig.title) {
+        else if (option.scrollTop < (this.bannerHeight - this.data.$titleBarHeight) && titleConfig.title) {
             this.setData({
                 titleConfig: {
                     bgColor: 'transparent',
@@ -62,8 +63,9 @@ Page({
             let photos = [];
             let baseHeight = 100;
             res.photos.map((photo) => {
-                photoUrls.push(photo.src);
-                photos.push(Object.assign({}, photo, { src: `https://cdn.liayal.com/${photo.key}`, w: photo.width * baseHeight / photo.height, paddingTop: photo.height / photo.width * 100 }));
+                const src = `https://cdn.liayal.com/${photo.key}`;
+                photoUrls.push(src);
+                photos.push(Object.assign({}, photo, { src, w: photo.width * baseHeight / photo.height, paddingTop: photo.height / photo.width * 100 }));
             });
             this.setData({
                 page,

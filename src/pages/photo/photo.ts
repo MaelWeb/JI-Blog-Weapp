@@ -18,6 +18,7 @@ Page({
             iconColor: '#fff',
             title: '',
         },
+        $titleBarHeight: 44,
         showLoading: false,
     },
     bannerHeight: Utils.rpxTopx(500),
@@ -43,7 +44,7 @@ Page({
     },
     onPageScroll(option: { scrollTop: number }) {
         const { titleConfig } = this.data
-        if (option.scrollTop > this.bannerHeight && !titleConfig.title) {
+        if (option.scrollTop > (this.bannerHeight - this.data.$titleBarHeight) && !titleConfig.title) {
             this.setData!({
                 titleConfig: {
                     bgColor: '#fff',
@@ -51,7 +52,7 @@ Page({
                     title: '图记',
                 },
             })
-        } else if (option.scrollTop < this.bannerHeight && titleConfig.title) {
+        } else if (option.scrollTop < (this.bannerHeight - this.data.$titleBarHeight) && titleConfig.title) {
             this.setData!({
                 titleConfig: {
                     bgColor: 'transparent',
@@ -79,7 +80,6 @@ Page({
                 let baseHeight = 100;
 
                 res.photos.map((photo: { key: string; width: number; w: number; height: number; }, ) => {
-                    console.log(photo)
                     const src = `https://cdn.liayal.com/${photo.key}`
                     photoUrls.push(src);
                     photos.push({

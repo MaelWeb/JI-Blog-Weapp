@@ -49,7 +49,7 @@
                     wx:key="{{tag.id}}"
                     data-id="{{tag.id}}"
                     bindtap="changeTag"
-                    wx:if="{{tag.count}}">{{tag.name}}</text>
+                    wx:if="{{tag.count && tag.id !== '5bb7046fe452e5131dbb6058' }}">{{tag.name}}</text>
             </scroll-view>
         </view>
         <view class="article-list">
@@ -58,6 +58,7 @@
                 wx:for-item="article"
                 wx:key="{{article.id}}"
                 data-id="{{article.id}}"
+                wx:if="{{article}}"
                 bindtap="goToArticle">
                 <c-image class="article-banner"
                     mode="aspectFill"

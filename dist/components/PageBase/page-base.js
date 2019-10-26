@@ -1,5 +1,5 @@
-import CommonBehaviors from '../Behaviors/component_bhv';
-import * as BaseUtils from '../../utils/util';
+import CommonBehaviors from "../Behaviors/component_bhv";
+import * as BaseUtils from "../../utils/util";
 const APP = getApp();
 const sysinfo = APP.globalData.SystemInfo;
 Component({
@@ -11,10 +11,10 @@ Component({
         titleConfig: {
             type: Object,
             value: {
-                title: '',
-                bgColor: '#fff',
+                title: "",
+                bgColor: "#fff",
                 iconColor: "#000",
-                align: 'center',
+                align: "center",
             },
         },
         titleSlot: {
@@ -37,23 +37,21 @@ Component({
                     this.setData({
                         paddingTop: newVal + sysinfo.statusBarHeight,
                     });
-                    BaseUtils.getPage().setData && BaseUtils.getPage().setData({
-                        $titleBarHeight: newVal + sysinfo.statusBarHeight,
-                    });
+                    BaseUtils.getPage().setData &&
+                        BaseUtils.getPage().setData({
+                            $titleBarHeight: newVal + sysinfo.statusBarHeight,
+                        });
                 }
-            }
+            },
         },
         paddingTop: {
             type: Number,
             value: 44 + sysinfo.statusBarHeight,
-        }
-    },
-    data: {
-        statusBarHeight: sysinfo.statusBarHeight,
+        },
     },
     ready() {
         BaseUtils.getPage().setData({
-            $titleBarHeight: this.data.paddingTop,
+            $titleBarHeight: 44 + sysinfo.statusBarHeight,
         });
     },
     methods: {
@@ -61,6 +59,6 @@ Component({
             this.setData({
                 showMenu: false,
             });
-        }
-    }
+        },
+    },
 });

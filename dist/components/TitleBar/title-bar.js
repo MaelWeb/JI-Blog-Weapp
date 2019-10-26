@@ -30,12 +30,12 @@ Component({
     attached() {
         const APP = getApp();
         const sysinfo = APP.globalData.SystemInfo;
+        const pages = getCurrentPages();
         this.setData({
             statusBarHeight: sysinfo.statusBarHeight,
-            showReturn: getCurrentPages().length > 1
+            showReturn: pages.length > 1,
+            showHome: (pages.length === 1) && (pages[0].route !== 'pages/index/index')
         });
-    },
-    ready() {
     },
     methods: {
         navigateBack() {
@@ -43,5 +43,10 @@ Component({
                 delta: 1,
             });
         },
+        navigateToHome() {
+            wx.reLaunch({
+                url: '/pages/index/index'
+            });
+        }
     }
 });

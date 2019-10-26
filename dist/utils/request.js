@@ -8,6 +8,7 @@ class _Request {
                 data: config.params || {},
                 method: 'GET',
                 success(res) {
+                    console.log('http', res);
                     if (res.statusCode == 200) {
                         resolve(res.data);
                     }

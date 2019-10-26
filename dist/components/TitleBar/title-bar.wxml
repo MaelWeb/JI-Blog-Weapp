@@ -4,7 +4,15 @@
         wx:if="{{showReturn}}"
         class="back"
         color="{{iconColor}}"
+        size="40rpx"
         bind:tap="navigateBack"
+        style="top: {{statusBarHeight}}px;" />
+    <c-icon name="home"
+        wx:if="{{showHome}}"
+        class="back"
+        size="40rpx"
+        color="{{iconColor}}"
+        bind:tap="navigateToHome"
         style="top: {{statusBarHeight}}px;" />
     <view class="title" style="text-align:{{align}};" wx:if="{{!useSlot}}">{{title}}</view>
     <slot></slot>

@@ -12,6 +12,7 @@ Page({
         page: 1,
         allPage: 0,
         showLoading: false,
+        $titleBarHeight: 44,
     },
     isLoading: false,
     bannerHeight: Utils.rpxTopx(800),
@@ -25,7 +26,7 @@ Page({
     },
     onPageScroll(option) {
         const { titleConfig } = this.data;
-        if (option.scrollTop > this.bannerHeight && !titleConfig.title) {
+        if (option.scrollTop > (this.bannerHeight - this.data.$titleBarHeight) && !titleConfig.title) {
             this.setData({
                 titleConfig: {
                     bgColor: '#fff',
@@ -34,7 +35,7 @@ Page({
                 },
             });
         }
-        else if (option.scrollTop < this.bannerHeight && titleConfig.title) {
+        else if (option.scrollTop < (this.bannerHeight - this.data.$titleBarHeight) && titleConfig.title) {
             this.setData({
                 titleConfig: {
                     bgColor: 'transparent',

@@ -3,8 +3,8 @@
     <title-bar class="titleBar"
         title="{{titleConfig.title}}"
         use-slot="{{titleSlot}}"
-        bg-color="{{titleConfig.bgColor}}"
-        icon-color="{{titleConfig.iconColor}}">
+        bg-color="{{titleConfig.bgColor || '#fff'}}"
+        icon-color="{{titleConfig.iconColor || '#000'}}">
         <slot name="titleBar"></slot>
     </title-bar>
     <slot></slot>
@@ -37,6 +37,13 @@
                 <c-icon name="pencil"
                     size="80rpx"
                     color="#67adfb" />
+            </navigator>
+            <navigator class="menu-item about"
+                bind:tap="closeMenu"
+                url="/pages/about/about">
+                <c-icon name="about"
+                    size="80rpx"
+                    color="#53bea6" />
             </navigator>
             <view class="slogan">游走在技术与艺术的边缘地带</view>
         </view>
