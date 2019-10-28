@@ -1,8 +1,0 @@
-{
-    "enablePullDownRefresh": false,
-    "usingComponents": {
-        "c-image": "/components/Image/image",
-        "c-page": "/components/PageBase/page-base",
-        "c-icon": "/components/Icon/icon"
-    }
-}

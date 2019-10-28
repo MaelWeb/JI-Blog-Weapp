@@ -1,9 +1,0 @@
-{
-    "component": true,
-    "usingComponents": {
-      "title-bar": "/components/TitleBar/title-bar",
-      "c-popup": "/components/Popup/popup",
-      "c-icon": "/components/Icon/icon",
-      "c-loading": "/components/Loading/loading"
-    }
-  }
