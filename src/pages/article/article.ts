@@ -1,7 +1,7 @@
 import { Host } from "@Config/index";
 import Request from "@Utils/request";
 import { rpxTopx, arrayChunk } from "@Utils/util";
-import comi from './comi/comi'
+import ArticeWxml from './articeWxml'
 
 // pages/article/article.js
 type ResData = {
@@ -26,7 +26,8 @@ Page({
 		child: [],
 		tags: [],
 		$titleBarHeight: 44,
-		loadMore: false,		
+		loadMore: false,	
+		pages: []	
 	},
 	options: {
 		id: "",
@@ -126,9 +127,9 @@ Page({
 			},
 		}).then((res: ResData) => {
 			const { article, wxml } = res;
-			const { title, createTime, banner = "", tags = [], content = '' } = article;
-			comi(content, this)
-			this._wxml = arrayChunk(wxml.child, 40);
+			const { title, createTime, banner = "", tags = [], } = article;
+			// this._wxml = arrayChunk(wxml.child, 40);
+			ArticeWxml.setWxmlData(arrayChunk(wxml.child, 40))
 			const date = this.formatTime(createTime);
 			this.setData!(
 				{
@@ -136,6 +137,7 @@ Page({
 					date,
 					title,
 					tags,
+					pages: [0]
 				},
 				this.hideLoading
 			);
@@ -178,19 +180,6 @@ Page({
 		// this.getNextPage();
 	},
 	getNextPage() {
-		this.page++;
-		const childKey = `child[${this.page}]`;
-		const nodeKey = `nodeMap[${this.page}]`;
-		this.setData!(
-			{
-				[childKey]: this.page,
-				[nodeKey]: this._wxml[this.page],
-			},
-			() => {
-				this.setData!({
-					loadMore: false,
-				});
-			}
-		);
+		
 	},
 });

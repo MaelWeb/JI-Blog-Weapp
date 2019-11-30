@@ -3,7 +3,8 @@
         "c-image": "/components/Image/image",
         "c-page": "/components/PageBase/page-base",
         "c-icon": "/components/Icon/icon",
-        "c-loading": "/components/Loading/loading"
+        "c-loading": "/components/Loading/loading",
+        "c-wxml": "./components/HtmlToWxml/index"
     },
     "onReachBottomDistance": 500
 }

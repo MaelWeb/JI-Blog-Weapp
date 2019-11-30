@@ -1,0 +1,4 @@
+<import src="../../templates/renderTemplate.wxml" />
+<view>
+    <template is="m0" data="{{item}}" />
+</view>

@@ -1,5 +1,4 @@
 <!-- pages/article/article.wxml -->
-<import src="./templates/renderTemplate.wxml" />
 <c-page title-config="{{titleConfig}}" show-loading="{{showLoading}}">
     <c-image class="article-layout-banner" mode="aspectFill" src="{{banner ? 'https:' + banner : 'https://cdn.liayal.com/article/article_default_banner.jpg' }}" />
     <view class="article-layout">
@@ -17,18 +16,11 @@
                 <text class="txt">{{article.visited}}</text>
             </view>
         </view>
-        <view class="wxParse">
-            <include src="./comi/comi.wxml" />
-        </view>
-        <!-- <view class="h2w h2w-{{theme}}">
+        <view class="h2w h2w-{{theme}}">
             <view class="h2w__main">
-                <block wx:if="{{ child.length }}" wx:for="{{child}}" wx:key="{{index}}">
-                    <block wx:if="{{ nodeMap[index] }}" wx:for="{{nodeMap[index]}}" wx:key="{{(index + 1 ) * 10 + idx}}" wx:for-index="idx">
-                        <template is="m0" data="{{item}}" />
-                    </block>
-                </block>
+                <c-wxml wx:for="{{pages}}" index="{{item}}" wx:key="{{index}}" />
             </view>
-        </view> -->
+        </view>
         <c-loading isShow="{{loadMore}}" size="large" class="loading" />
     </view>
 </c-page>
