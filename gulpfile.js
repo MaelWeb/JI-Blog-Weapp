@@ -26,7 +26,7 @@ const Uglify = require('gulp-uglify-es').default;
 
 // 匹配文件路径
 const path = {
-    lessPath: ['src/**/*.less'],
+    lessPath: ['src/**/*.less', '!src/**/templates/style/*.less'],
     wxssPath: ['src/**/*.wxss'],
     tsPath: ['src/**/*.ts', 'src/**/*.js',],
     copy: ['src/**/*.wxml', 'src/**/*.json', 'src/**/*.wxs'],
