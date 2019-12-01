@@ -162,6 +162,7 @@ type DefinitionFilter = (
 declare interface ComponentOptions {
   multipleSlots?: boolean;
   addGlobalClass?: boolean;
+  styleIsolation?: string;
 }
 
 declare interface BaseComponent extends ComponentLifetimes {

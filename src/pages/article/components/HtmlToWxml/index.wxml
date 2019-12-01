@@ -1,4 +1,6 @@
 <import src="../../templates/renderTemplate.wxml" />
 <view>
-    <template is="m0" data="{{item}}" />
+    <block wx:for="{{wxms}}" wx:key="{{index}}">
+        <template is="m0" data="{{item}}" />
+    </block>
 </view>

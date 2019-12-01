@@ -22,12 +22,13 @@ Page({
 		date: "",
 		title: "",
 		node: "root",
-		theme: "light",
+		theme: "dark",
 		child: [],
 		tags: [],
 		$titleBarHeight: 44,
 		loadMore: false,	
-		pages: []	
+		pages: [-1,],
+		pageCount: 0,	
 	},
 	options: {
 		id: "",
@@ -44,26 +45,6 @@ Page({
 	},
 	onReady() {
 		this.layoutMarginTop = rpxTopx(340);
-	},
-	__bind_tap(event: event) {
-		const href = event.currentTarget.dataset.url;
-		if (href) {
-			this.navigateTo(href);
-		}
-	},
-	navigateTo(href: string) {
-		const site = "https://www.liayal.com/article/";
-		if (href.indexOf(site) !== -1) {
-			wx.navigateTo({
-				url: `/pages/article/article?id=${href.split(site)[1]}`,
-			});
-		} else {
-			wx.showToast({
-				icon: "none",
-				title: "站外链接暂不支持，请至【JI-记小栈】网页版查看",
-				duration: 3000,
-			});
-		}
 	},
 	onPageScroll(option: { scrollTop: number }) {
 		const { titleConfig } = this.data;
@@ -128,8 +109,8 @@ Page({
 		}).then((res: ResData) => {
 			const { article, wxml } = res;
 			const { title, createTime, banner = "", tags = [], } = article;
-			// this._wxml = arrayChunk(wxml.child, 40);
-			ArticeWxml.setWxmlData(arrayChunk(wxml.child, 40))
+			const wxmls = arrayChunk(wxml.child, 40)
+			ArticeWxml.setWxmlData(wxmls)
 			const date = this.formatTime(createTime);
 			this.setData!(
 				{
@@ -137,7 +118,8 @@ Page({
 					date,
 					title,
 					tags,
-					pages: [0]
+					pages: [0],
+					pageCount: wxmls.length
 				},
 				this.hideLoading
 			);
@@ -167,19 +149,18 @@ Page({
 		return `${year}年${month}月${day}日`;
 	},
 	onReachBottom() {
-		// if (
-		// 	this.data.showLoading ||
-		// 	this.data.loadMore ||
-		// 	this.page >= this._wxml.length
-		// )
-		// 	return;
-		// this.setData!({
-		// 	loadMore: true,
-		// });
-
-		// this.getNextPage();
+		const { pages, pageCount, showLoading, loadMore } = this.data
+		if (pages.length < pageCount && !showLoading && !loadMore) {
+			const _pages = [...pages, pages.length]
+			this.setData!!({
+				pages: _pages,
+				loadMore: true,
+			})
+		}
 	},
-	getNextPage() {
-		
+	componentDidUpdate() {
+		this.setData!!({
+			loadMore: false,
+		})
 	},
 });

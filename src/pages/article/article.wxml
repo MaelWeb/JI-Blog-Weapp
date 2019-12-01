@@ -18,7 +18,7 @@
         </view>
         <view class="h2w h2w-{{theme}}">
             <view class="h2w__main">
-                <c-wxml wx:for="{{pages}}" index="{{item}}" wx:key="{{index}}" />
+                <c-wxml wx:for="{{pages}}" index="{{item}}" wx:key="{{index}}" bind:componentDidUpdate="componentDidUpdate"/>
             </view>
         </view>
         <c-loading isShow="{{loadMore}}" size="large" class="loading" />

@@ -148,6 +148,7 @@
     border-spacing: 0;
     display: table;
     margin-bottom: 40rpx;
+    box-sizing: border-box;
 }
 
 .h2w__table .h2w__tr:nth-child(2n) {
@@ -212,7 +213,7 @@
 
 .h2w__pre,
 .h2w__code {
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, "STHeitiTC-Light", "Microsoft YaHei Light", -apple-system, system-ui, BlinkMacSystemFont;
+    font-family: Droid Sans Mono,CPMono_v07 Bold,Droid Sans;
 }
 
 .h2w__code {
