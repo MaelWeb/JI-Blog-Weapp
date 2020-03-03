@@ -25,7 +25,7 @@
                 wx:for="{{banners}}"
                 wx:for-item="banner"
                 wx:for-index="idx"
-                wx:key="{{idx}}"
+                wx:key="idx"
                 data-href="{{banner.href}}"
                 bindtap="swiperTap">
                 <view class="swiper-item-box">
@@ -46,7 +46,7 @@
                 <text class="tags-item {{curTagId == tag.id ? 'tag-active' : ''}}"
                     wx:for="{{tags}}"
                     wx:for-item="tag"
-                    wx:key="{{tag.id}}"
+                    wx:key="id"
                     data-id="{{tag.id}}"
                     bindtap="changeTag"
                     wx:if="{{tag.count && tag.id !== '5bb7046fe452e5131dbb6058' }}">{{tag.name}}</text>
@@ -56,7 +56,7 @@
             <view class="article-item"
                 wx:for="{{articles}}"
                 wx:for-item="article"
-                wx:key="{{article.id}}"
+                wx:key="id"
                 data-id="{{article.id}}"
                 wx:if="{{article}}"
                 bindtap="goToArticle">
