@@ -232,7 +232,6 @@ declare namespace wx {
     }
   }
 }
-
 declare namespace ICloud {
 
   interface ICloudAPIParam<T = any> extends IAPIParam<T> {

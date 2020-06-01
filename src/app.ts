@@ -10,5 +10,9 @@ export interface IMyApp {
 App<IMyApp>({
     globalData: {
         SystemInfo: Utils.getSysInfo()
+    },
+    onLaunch() {
+        // @ts-ignore
+        wx.cloud.init();
     }
 })

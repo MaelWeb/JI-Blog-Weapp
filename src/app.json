@@ -12,7 +12,7 @@
         "navigationBarBackgroundColor": "#212121",
         "navigationBarTitleText": "记小栈",
         "navigationBarTextStyle": "black",
-        "backgroundColor": "f8f8f8",
+        "backgroundColor": "#f8f8f8",
         "enablePullDownRefresh": false,
         "onReachBottomDistance": 80,
         "navigationStyle": "custom"

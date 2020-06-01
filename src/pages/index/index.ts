@@ -1,17 +1,17 @@
-import Request from '@Utils/request';
-import { Host } from '@Config/index';
-import { formatTime, getOffsetInfo } from '@Utils/util';
+import Request from "@Utils/request";
+import { Host } from "@Config/index";
+import { formatTime, getOffsetInfo } from "@Utils/util";
 
 type article = {
-    date: string,
-    createTime: number
-}
+    date: string;
+    createTime: number;
+};
 //获取应用实例
 Page({
     data: {
         banners: [],
         tags: [],
-        curTagId: '',
+        curTagId: "",
         page: 1,
         allNum: 0,
         allPage: 0,
@@ -25,27 +25,42 @@ Page({
     onLoad() {
         this.setData!({
             showLoading: true,
-        })
+        });
         this.getBanner();
-        this.getArticles(1, '');
+        this.getArticles(1, "");
         this.getAllTags();
 
-        this.getDate()
+        this.getDate();
+
+        // @ts-ignore
+        wx.cloud
+            .callFunction({
+                // 云函数名称
+                name: "miniCode",
+                // 传给云函数的参数
+                data: {
+                    a: 1,
+                    b: 2,
+                },
+            })
+            .then((res: any) => {
+                console.log(res.result); // 3
+            })
+            .catch(console.error);
     },
     swiperHeight: 300,
-    onShow() { },
+    onShow() {},
     onReady() {
-        getOffsetInfo('.index-swiper')
-            .then((dom: ResData): void | PromiseLike<void> => {
-                this.swiperHeight = dom.height
-            })
+        getOffsetInfo(".index-swiper").then((dom: any) => {
+            this.swiperHeight = dom.height;
+        });
     },
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh() {
         const { curTagId } = this.data;
-        this.getArticles(1, curTagId)
+        this.getArticles(1, curTagId);
     },
     onReachBottom() {
         const { allPage, page, curTagId } = this.data;
@@ -58,58 +73,65 @@ Page({
      */
     onShareAppMessage() {
         return {
-            title: '「JI · 记小栈」',
-            path: '/pages/index/index',
-        }
+            title: "「JI · 记小栈」",
+            path: "/pages/index/index",
+        };
     },
     onPageScroll(option: { scrollTop: number }) {
-        if ((option.scrollTop > this.swiperHeight) && !this.data.isShowFixedTag) {
+        if (option.scrollTop > this.swiperHeight && !this.data.isShowFixedTag) {
             this.setData!({
-                isShowFixedTag: true
-            })
-        } else if ((option.scrollTop < this.swiperHeight) && this.data.isShowFixedTag) {
+                isShowFixedTag: true,
+            });
+        } else if (
+            option.scrollTop < this.swiperHeight &&
+            this.data.isShowFixedTag
+        ) {
             this.setData!({
-                isShowFixedTag: false
-            })
+                isShowFixedTag: false,
+            });
         }
     },
     getBanner() {
         return Request.get(`${Host}/get/banners`, {
             params: {
-                page: 'HOME'
-            }
+                page: "HOME",
+            },
         }).then((data: ResData): object => {
             this.setData!({
-                banners: data.banners
+                banners: data.banners,
             });
-            return data
-        })
+            return data;
+        });
     },
     getAllTags() {
-        return Request.get(`${Host}/get/alltags`)
-            .then((res: ResData): object => {
+        return Request.get(`${Host}/get/alltags`).then(
+            (res: ResData): object => {
                 this.setData!({
-                    tags: res.tags.slice(0, 9)
-                })
-                return res
-            })
+                    tags: res.tags.slice(0, 9),
+                });
+                return res;
+            }
+        );
     },
     getArticles(page: number, tagid: string) {
         this.isLoading = true;
         return Request.get(`${Host}/get/publish/articles`, {
             params: {
-                tag: tagid || '',
-                category: 'DEFAULT',
-                page
-            }
+                tag: tagid || "",
+                category: "DEFAULT",
+                page,
+            },
         }).then((res: ResData): object => {
-            const articles: object[] = res.articles.map((article: article): object => {
-                article.date = formatTime(article.createTime);
+            const articles: object[] = res.articles.map(
+                (article: article): object => {
+                    article.date = formatTime(article.createTime);
 
-                return article;
-            });
+                    return article;
+                }
+            );
             this.setData!({
-                articles: page == 1 ? articles : this.data.articles.concat(articles),
+                articles:
+                    page == 1 ? articles : this.data.articles.concat(articles),
                 curTagId: tagid,
                 allNum: res.allNum,
                 page: res.page,
@@ -119,8 +141,8 @@ Page({
             this.isLoading = false;
             wx.hideLoading();
             wx.stopPullDownRefresh();
-            return res
-        })
+            return res;
+        });
     },
     changeTag(event: event) {
         let id = event.currentTarget.dataset.id;
@@ -129,7 +151,7 @@ Page({
     goToArticle(event: event) {
         let articleId = event.currentTarget.dataset.id;
         wx.navigateTo({
-            url: `/pages/article/article?id=${articleId}`
+            url: `/pages/article/article?id=${articleId}`,
         });
     },
     swiperTap(event: event) {
@@ -137,15 +159,15 @@ Page({
             localHost = /www\.liayal.com\/article\//g;
 
         if (localHost.test(href)) {
-            let hrefArray = href.split('www.liayal.com/article/');
+            let hrefArray = href.split("www.liayal.com/article/");
             wx.navigateTo({
-                url: `/pages/article/article?id=${hrefArray[1]}`
+                url: `/pages/article/article?id=${hrefArray[1]}`,
             });
         } else {
             wx.showToast({
-                title: '外部链接，无法在小程序查看',
-                icon: 'none'
-            })
+                title: "外部链接，无法在小程序查看",
+                icon: "none",
+            });
         }
     },
     getDate() {
@@ -153,12 +175,12 @@ Page({
         const dayArray = day.split(" ");
 
         this.setData!({
-            date: `${dayArray[0]} ${dayArray[2]} ${dayArray[1]}`
-        })
+            date: `${dayArray[0]} ${dayArray[2]} ${dayArray[1]}`,
+        });
     },
     showMenu() {
         this.setData!({
             isShowMenu: true,
-        })
-    }
-})
+        });
+    },
+});

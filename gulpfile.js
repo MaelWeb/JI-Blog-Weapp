@@ -32,6 +32,8 @@ const path = {
     copy: ['src/**/*.wxml', 'src/**/*.json', 'src/**/*.wxs'],
     jsonPath: 'src/**/*.json',
     images: ['src/images/*.*'],
+    cloud: ['cloud/**/*'],
+    config: ['./project.config.json']
 };
 
 const uglifyOpts = {
@@ -41,7 +43,8 @@ const uglifyOpts = {
     },
 };
 
-const DEST = 'dist';
+const DEST = 'dist/miniprogram';
+const CloudDEST = 'dist/cloudfunctions';
 
 const urlPrefix = {
     prefix: 'https://cdn.liayal.com/dist',
@@ -142,7 +145,7 @@ function imagemin() {
     return src(path.images)
         .pipe(Changed(DEST))
         .pipe(ImageMin())
-        .pipe(dest('dist/images'));
+        .pipe(dest(DEST + '/images'));
 }
 
 const images = series(imagemin, (cb) => {
@@ -160,11 +163,22 @@ function clean() {
 
 // 检查冗余文件。根据文件名来检测，所以对同名文件无力。
 function findUnuse() {
-    return src(['dist'])
+    return src([DEST])
         .pipe(FindUnused({
             ignoreList: ['.json', '.wxml'], // 忽略的文件后缀，或文件名
-            rootDir: Path.join(__dirname, 'dist/'),
+            rootDir: Path.join(__dirname, DEST),
         }));
+}
+
+function cloudCopy() {
+    return src(path.cloud)
+        .pipe(Changed(CloudDEST))
+        .pipe(dest(CloudDEST));
+}
+
+function configCopy() {
+    return src(path.config)
+        .pipe(dest('dist/'));
 }
 
 function devbuild(cb) {
@@ -174,15 +188,17 @@ function devbuild(cb) {
     watch(path.wxssPath, wxss);
     watch(path.tsPath, ts);
     watch(path.images, imagemin);
+    watch(path.cloud, cloudCopy);
+    watch(path.config, configCopy);
 
     console.log('\r\nStart watch file...\r\n');
     cb();
 }
 
 if (process.env.NODE_ENV === 'production') {
-    exports.build = series(clean, parallel(less, ts, imagemin, wxss, copy), findUnuse);
+    exports.build = series(clean, parallel(less, ts, imagemin, wxss, copy), findUnuse, cloudCopy);
 } else {
-    exports.build = series(clean, parallel(less, wxss, ts, imagemin, copy), devbuild);
+    exports.build = series(clean, parallel(less, wxss, ts, imagemin, copy, cloudCopy, configCopy), devbuild);
 }
 
 // exports.default = series(clean, parallel(copy, wxss, ts, images));

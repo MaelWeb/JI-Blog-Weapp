@@ -14,11 +14,11 @@
         <view class="article-title">{{title}}</view>
         <view class="article-desc">
             <view class="item">
-                <text class="iconfont icon-date" />
+                <c-icon name="date" class="c-icon" size="24rpx" />
                 <text class="txt">{{date}}</text>
             </view>
             <view class="item">
-                <text class="iconfont icon-visit" />
+                <c-icon name="visit" class="c-icon" size="24rpx" />
                 <text class="txt">{{visited}}</text>
             </view>
         </view>
