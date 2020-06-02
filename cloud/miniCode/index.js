@@ -11,10 +11,11 @@ WCloud.init({
 })
 
 function fileUpload(buffer, key) {
+    const fileName = `code/${key}`
     return new Promise((resolve, reject) => {
         const mac = new Qiniu.auth.digest.Mac(AK, SK);
         const options = {
-            scope: 'hynal-static'
+            scope: `hynal-static:${fileName}`
         }
         const putPolicy = new Qiniu.rs.PutPolicy(options);
         const uploadToken = putPolicy.uploadToken(mac);
@@ -28,7 +29,7 @@ function fileUpload(buffer, key) {
         const formUploader = new Qiniu.form_up.FormUploader(config);
         const putExtra = new Qiniu.form_up.PutExtra();
 
-        formUploader.put(uploadToken, `code/${key}`, buffer, putExtra, function (respErr,
+        formUploader.put(uploadToken, fileName, buffer, putExtra, function (respErr,
             respBody, respInfo) {
             if (respErr) {
                 reject(respErr);
@@ -51,7 +52,7 @@ exports.main = async (event, context) => {
         })
         if (codeResult.errCode === 0) {
             const qiniuRes = await fileUpload(codeResult.buffer, event.id || +new Date())
-            const res =  {
+            const res = {
                 code: 200,
                 url: `https://static.liayal.com/${qiniuRes.key}`
             }

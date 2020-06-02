@@ -15,7 +15,7 @@ Component({
         },
         height: {
             type: String,
-            value: '798rpx'
+            value: '750rpx'
         },
         palette: {
             type: Object,
@@ -94,6 +94,7 @@ Component({
             this.setData({
                 painterStyle: `width:${_palette.width};height:${_palette.height};`,
                 btnStyle: `width:${_palette.width};`,
+                isShowBg: true,
             })
             this.downloadImages().then((palette: { width: string; height: string }) => {
                 const {
@@ -260,7 +261,6 @@ Component({
                         this.setData({
                             isShowBg: false,
                         })
-                        wx.hideLoading()
                     } else {
                         this.startPaint()
                     }

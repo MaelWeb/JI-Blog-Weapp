@@ -46,6 +46,7 @@ Component({
         // 卡片生成成功
         onShareCardSuccess(path: string) {
             this.shareCardPath = path
+            this.triggerEvent('shareCardSuccess', {path})
         },
         // 卡片保存成功
         onCardSaveSuccess() {

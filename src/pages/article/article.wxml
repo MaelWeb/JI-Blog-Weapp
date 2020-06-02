@@ -3,7 +3,7 @@
     show-loading="{{showLoading}}">
     <c-image class="article-layout-banner"
         mode="aspectFill"
-        src="{{banner ? 'https:' + banner : 'https://cdn.liayal.com/article/article_default_banner.jpg' }}" />
+        src="{{banner}}" />
     <view class="article-layout">
         <view class="tags"
             wx:if="{{ tags.length }}">
@@ -45,4 +45,6 @@
 <c-share-popup show="{{ isShowShare }}"
     share-card-json="{{shareCardJson}}"
     is-show-share-card="{{isShowShareCard}}"
-    bind:tapShareCard="createShareCard" />
+    bind:tapShareCard="createShareCard"
+    bind:shareCardSuccess="shareCardSuccess"
+ />

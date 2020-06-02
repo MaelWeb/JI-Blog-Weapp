@@ -102,7 +102,8 @@ Component({
          *
          * */
         setUrl(): void {
-            if (!/^(http|https)./g.test(this.data.src)) {
+            const urlReg = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+            if (!urlReg.test(this.data.src)) {
                 console.error(
                     `[Image Component] ${this.data.src} 图片路径有误！本地图片请使用原生 <image> 组件`,
                 );
@@ -136,7 +137,7 @@ Component({
                 this.setData({
                     lazyLoad: res.top > sysinfo.windowHeight,
                     _style,
-                    _src: `${
+                    _src: `${!/^(http|https)./g.test(this.data.src) ? 'https:' : ''}${
                         this.data.src.split('?')[0]
                     }?${`imageMogr2/auto-orient/thumbnail/${_width}x/strip/format/${_format}/interlace/1/quality/90/size-limit/300k!`}`,
                 });

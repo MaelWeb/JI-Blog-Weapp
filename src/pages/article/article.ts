@@ -2,7 +2,7 @@ import { Host } from "@Config/index";
 import Request from "@Utils/request";
 import { rpxTopx, arrayChunk } from "@Utils/util";
 import ArticeWxml from "./articeWxml";
-import getCardJson from './card'
+import getCardJson from "./card";
 
 type ResData = {
     [key: string]: any;
@@ -26,8 +26,12 @@ Page({
         loadMore: false,
         pages: [-1],
         pageCount: 0,
-        shareCardJson: {},
+        shareCardJson: {
+            width: "525rpx",
+            height: "750rpx",
+        },
     },
+    hasShareCardPath: false,
     options: {
         id: "",
     },
@@ -104,19 +108,16 @@ Page({
             },
         }).then((res: ResData) => {
             const { article, wxml } = res;
-            const {
-                title,
-                createTime,
-                banner = "",
-                tags = [],
-                visited,
-            } = article;
+            const { title, createTime, banner, tags = [], visited } = article;
+            const _banner = banner
+                ? `https:${banner}`
+                : "https://cdn.liayal.com/article/article_default_banner.jpg";
             const wxmls = arrayChunk(wxml.child, 40);
             ArticeWxml.setWxmlData(wxmls);
             const date = this.formatTime(createTime);
             this.setData!(
                 {
-                    banner,
+                    banner: _banner,
                     date,
                     title,
                     tags,
@@ -171,42 +172,84 @@ Page({
             isShowShare: true,
         });
     },
-    createShareCard() {
-        const { title } = this.data
+    async createShareCard() {
+        // 获取数据库集合
+        // @ts-ignore
+        const db = wx.cloud.database();
+        // 获取二维码db
+        const miniCodeDB = db.collection("miniCode");
+        const _ = db.command;
+
+        this.setData!!({
+            isShowShareCard: true,
+        });
+        if (this.hasShareCardPath) return;
+        wx.showLoading({
+            title: "卡片生成中...",
+            mask: true,
+        });
+        miniCodeDB
+            .where({
+                //@ts-ignore
+                id: _.eq(this.options.id),
+            })
+            .get()
+            .then((res: { data: any }) => {
+                console.log("dataDB", res.data);
+                if (res.data && res.data.length) {
+                    this.setShareCardJson(res.data[0].codeUrl);
+                } else {
+                    this.getMiniCode();
+                }
+            })
+            .catch(() => {
+                this.getMiniCode();
+            });
+    },
+    getMiniCode() {
+        // @ts-ignore
+        wx.cloud
+            .callFunction({
+                // 云函数名称
+                name: "miniCode",
+                // 传给云函数的参数
+                data: {
+                    path: `pages/article/article?id=${this.options.id}`,
+                    id: this.options.id,
+                },
+            })
+            .then((res: any) => {
+                const result = res.result;
+                // 将当前页面的小程序码添加到数据库
+                // @ts-ignore
+                const db = wx.cloud.database();
+                // 获取二维码db
+                const miniCodeDB = db.collection("miniCode");
+                miniCodeDB.add({
+                    data: {
+                        id: this.options.id,
+                        codeUrl: result.url,
+                    },
+                });
+                this.setShareCardJson(result.url);
+            })
+            .catch(console.error);
+    },
+    setShareCardJson(code: string) {
+        const { title, banner } = this.data;
         const shareCardJson = getCardJson({
             title,
-            code: 'https://static.liayal.com/code/5ad216ff1a74553a6eabdb1f'
-        })
+            code,
+            banner,
+        });
         this.setData!!({
             isShowShareCard: true,
             shareCardJson,
-        })
-        // @ts-ignore
-        // wx.cloud
-        //     .callFunction({
-        //         // 云函数名称
-        //         name: "miniCode",
-        //         // 传给云函数的参数
-        //         data: {
-        //             path: `pages/article/article?id=${this.options.id}`,
-        //             id: this.options.id,
-        //         },
-        //     })
-        //     .then((res: any) => {
-        //         console.log(res.result);
-        //         const result = res.result
-        //         // 获取数据库集合
-        //         // @ts-ignore
-        //         const db = wx.cloud.database();
-        //         // 获取二维码db
-        //         const miniCodeDB = db.collection("miniCode");
-        //         miniCodeDB.add({
-        //             data: {
-        //                 id: this.options.id,
-        //                 codeUrl: result.url,
-        //             },
-        //         });
-        //     })
-        //     .catch(console.error);
+        });
+    },
+    shareCardSuccess() {
+        console.log('shareCardSuccess')
+        wx.hideLoading();
+        this.hasShareCardPath = true;
     },
 });

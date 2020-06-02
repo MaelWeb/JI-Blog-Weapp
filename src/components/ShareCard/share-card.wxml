@@ -9,7 +9,7 @@
             style="{{painterStyle}};" />
         <view class="yh-share-card-loading"
             style="width: {{width}};min-height: {{height}};{{painterStyle}};{{ isShowBg ? 'opacity: 1;' : 'opacity: 0;'}}">
-            <image src="{{ background || palette.background}}"
+            <image src="https://static.liayal.com/images/ji_sharecard_bg.png"
                 mode="widthFix"></image>
         </view>
         <view class="yh-share-card-btns"

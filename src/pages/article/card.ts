@@ -1,11 +1,11 @@
 function getCardJson({
-    banner = "https://cdn.liayal.com/article/article_default_banner.jpg",
+    banner,
     title = "记小栈",
-    code = "https://static.liayal.com/code/5ad216ff1a74553a6eabdb1f",
+    code,
 }: {
     banner?: string;
-    title: string;
-    code: string;
+    title?: string;
+    code?: string;
 }) {
     return {
         width: "525rpx",
