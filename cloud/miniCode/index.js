@@ -2,8 +2,8 @@ const WCloud = require('wx-server-sdk')
 const Qiniu = require('qiniu')
 
 // AccessKey/SecretKey
-const AK = 'v6NxwNQtqVpK0Z51X0iq-YXv0Fo8qlFcVxnlYbO6'
-const SK = 'b5p89rqZeO8KJEjEvOp3Pk2fHtKEToE5PdSmQLRq'
+const AK = ''
+const SK = ''
 
 WCloud.init({
     // API 调用都保持和云函数当前所在环境一致
