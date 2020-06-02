@@ -1,0 +1,53 @@
+.yh-share-card {
+    position: relative;
+    transition: all .3s;
+
+    .yh-share-card-canvans,
+    .yh-share-card-loading {
+        transition: all .3s;
+        opacity: 1;
+    }
+
+    .yh-share-card-loading {
+        position: relative;
+        background-color: #eee;
+        border-radius: 8rpx;
+        transition: all .2s;
+        overflow: hidden;
+        z-index: 1;
+
+        image {
+            width: 100%;
+            filter: blur(8px);
+        }
+    }
+
+    .yh-share-card-canvans {
+        position: absolute;
+        z-index: 2;
+    }
+
+    .yh-share-card-btns {
+        margin-top: 40rpx;
+    }
+
+    .yh-share-card-btn {
+        padding: 0;
+        width: 48%;
+        height: 80rpx;
+        color: #333;
+        background-color: #fff;
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 80rpx;
+        text-align: center;
+        font-size: 32rpx;
+        border-radius: 80rpx;
+    }
+
+    .btn-focus {
+        background: linear-gradient(to right, #ffa133, #f75e1d);
+        color: #fff;
+        float: right;
+    }
+}

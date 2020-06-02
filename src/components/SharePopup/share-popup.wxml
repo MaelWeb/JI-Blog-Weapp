@@ -1,0 +1,38 @@
+<oak-popup show="{{show}}"
+    height="33%"
+    position="bottom"
+    bind:onPopupClose="closePopup"
+    z-index="20">
+    <view class="yh-component-share-popup">
+        <view class="yh-component-share-popup-title">
+            <oak-icon name="close-light"
+                color="#999"
+                bind:tap="closePopup"
+                class="yh-component-share-popup-close" /> 分享至
+        </view>
+        <view class="yh-component-share-popup-body">
+            <button class="yh-component-share-popup-body-item"
+                open-type="share"
+                bind:tap="shareToFriend">
+                <c-image class="icon-img"
+                    mode="widthFix"
+                    src="https://static.yonghuivip.com/wechatapp/static/images/share_popup_wechat.png" />
+                <text class="text">微信好友</text>
+            </button>
+            <view class="yh-component-share-popup-body-item"
+                bind:tap="createShareCard">
+                <c-image class="icon-img"
+                    mode="widthFix"
+                    src="https://static.yonghuivip.com/wechatapp/static/images/share_popup_pic.png" />
+                <text class="text">生成卡片分享</text>
+            </view>
+        </view>
+    </view>
+</oak-popup>
+
+<c-share-card
+    palette="{{shareCardJson}}"
+    bind:onCardSaveCancel="saveCardCancel"
+    bind:onCardSuccess="onShareCardSuccess"
+    bind:onCardSaveSuccess="onCardSaveSuccess"
+    isShow="{{isShowShareCard}}" />

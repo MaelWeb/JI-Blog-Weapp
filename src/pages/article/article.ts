@@ -1,15 +1,16 @@
 import { Host } from "@Config/index";
 import Request from "@Utils/request";
 import { rpxTopx, arrayChunk } from "@Utils/util";
-import ArticeWxml from './articeWxml'
+import ArticeWxml from "./articeWxml";
+import getCardJson from './card'
 
 type ResData = {
     [key: string]: any;
 };
 Page({
-	/**
-	 * 页面的初始数据
-	 */
+    /**
+     * 页面的初始数据
+     */
     data: {
         showLoading: false,
         titleConfig: {
@@ -23,16 +24,17 @@ Page({
         tags: [],
         $titleBarHeight: 44,
         loadMore: false,
-        pages: [-1,],
+        pages: [-1],
         pageCount: 0,
+        shareCardJson: {},
     },
     options: {
         id: "",
     },
     layoutMarginTop: 0,
-	/**
-	 * 生命周期函数--监听页面加载
-	 */
+    /**
+     * 生命周期函数--监听页面加载
+     */
     onLoad(options: { id: string }) {
         this.options = options;
         this.getArticle();
@@ -44,7 +46,7 @@ Page({
         const { titleConfig } = this.data;
         if (
             option.scrollTop >
-            this.layoutMarginTop - this.data.$titleBarHeight &&
+                this.layoutMarginTop - this.data.$titleBarHeight &&
             !titleConfig.title
         ) {
             this.setData!({
@@ -56,7 +58,7 @@ Page({
             });
         } else if (
             option.scrollTop <
-            this.layoutMarginTop - this.data.$titleBarHeight &&
+                this.layoutMarginTop - this.data.$titleBarHeight &&
             titleConfig.title
         ) {
             this.setData!({
@@ -69,16 +71,16 @@ Page({
         }
     },
 
-	/**
-	 * 页面相关事件处理函数--监听用户下拉动作
-	 */
+    /**
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
     onPullDownRefresh() {
         this.getArticle();
     },
 
-	/**
-	 * 用户点击右上角分享
-	 */
+    /**
+     * 用户点击右上角分享
+     */
     onShareAppMessage() {
         return {
             title: `${this.data.title} - 「JI · 记小栈」`,
@@ -102,9 +104,15 @@ Page({
             },
         }).then((res: ResData) => {
             const { article, wxml } = res;
-            const { title, createTime, banner = "", tags = [], visited } = article;
-            const wxmls = arrayChunk(wxml.child, 40)
-            ArticeWxml.setWxmlData(wxmls)
+            const {
+                title,
+                createTime,
+                banner = "",
+                tags = [],
+                visited,
+            } = article;
+            const wxmls = arrayChunk(wxml.child, 40);
+            ArticeWxml.setWxmlData(wxmls);
             const date = this.formatTime(createTime);
             this.setData!(
                 {
@@ -114,7 +122,7 @@ Page({
                     tags,
                     visited,
                     pages: [0],
-                    pageCount: wxmls.length
+                    pageCount: wxmls.length,
                 },
                 this.hideLoading
             );
@@ -144,18 +152,61 @@ Page({
         return `${year}年${month}月${day}日`;
     },
     onReachBottom() {
-        const { pages, pageCount, showLoading, loadMore } = this.data
+        const { pages, pageCount, showLoading, loadMore } = this.data;
         if (pages.length < pageCount && !showLoading && !loadMore) {
-            const _pages = [...pages, pages.length]
+            const _pages = [...pages, pages.length];
             this.setData!!({
                 pages: _pages,
                 loadMore: true,
-            })
+            });
         }
     },
     componentDidUpdate() {
         this.setData!!({
             loadMore: false,
+        });
+    },
+    showShare() {
+        this.setData!!({
+            isShowShare: true,
+        });
+    },
+    createShareCard() {
+        const { title } = this.data
+        const shareCardJson = getCardJson({
+            title,
+            code: 'https://static.liayal.com/code/5ad216ff1a74553a6eabdb1f'
         })
+        this.setData!!({
+            isShowShareCard: true,
+            shareCardJson,
+        })
+        // @ts-ignore
+        // wx.cloud
+        //     .callFunction({
+        //         // 云函数名称
+        //         name: "miniCode",
+        //         // 传给云函数的参数
+        //         data: {
+        //             path: `pages/article/article?id=${this.options.id}`,
+        //             id: this.options.id,
+        //         },
+        //     })
+        //     .then((res: any) => {
+        //         console.log(res.result);
+        //         const result = res.result
+        //         // 获取数据库集合
+        //         // @ts-ignore
+        //         const db = wx.cloud.database();
+        //         // 获取二维码db
+        //         const miniCodeDB = db.collection("miniCode");
+        //         miniCodeDB.add({
+        //             data: {
+        //                 id: this.options.id,
+        //                 codeUrl: result.url,
+        //             },
+        //         });
+        //     })
+        //     .catch(console.error);
     },
 });

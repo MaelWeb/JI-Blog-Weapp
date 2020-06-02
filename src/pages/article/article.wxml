@@ -14,17 +14,35 @@
         <view class="article-title">{{title}}</view>
         <view class="article-desc">
             <view class="item">
-                <c-icon name="date" class="c-icon" size="24rpx" />
+                <c-icon name="date"
+                    class="c-icon"
+                    size="24rpx" />
                 <text class="txt">{{date}}</text>
             </view>
             <view class="item">
-                <c-icon name="visit" class="c-icon" size="24rpx" />
+                <c-icon name="visit"
+                    class="c-icon"
+                    size="24rpx" />
                 <text class="txt">{{visited}}</text>
             </view>
         </view>
-        <towxml wx:for="{{pages}}" index="{{item}}" wx:key="index" bind:componentDidUpdate="componentDidUpdate"/>
+        <towxml wx:for="{{pages}}"
+            index="{{item}}"
+            wx:key="index"
+            bind:componentDidUpdate="componentDidUpdate" />
         <c-loading isShow="{{loadMore}}"
             size="large"
             class="loading" />
-        </view>
+
+        <c-icon bind:tap="showShare"
+            wx:if="{{pages.length && !loadMore && !showLoading}}"
+            name="fenxiang"
+            class="share"
+            size="140rpx"
+            color="#d1a47d" />
+    </view>
 </c-page>
+<c-share-popup show="{{ isShowShare }}"
+    share-card-json="{{shareCardJson}}"
+    is-show-share-card="{{isShowShareCard}}"
+    bind:tapShareCard="createShareCard" />

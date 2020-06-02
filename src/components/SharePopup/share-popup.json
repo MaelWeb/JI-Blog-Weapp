@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "oak-popup": "../Popup/popup",
+    "oak-icon": "../Icon/icon",
+    "c-share-card": "../ShareCard/share-card",
+    "c-image": "../Image/image"
+  },
+  "component": true
+}

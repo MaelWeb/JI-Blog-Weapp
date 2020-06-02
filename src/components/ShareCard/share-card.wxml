@@ -1,0 +1,26 @@
+<oak-popup show="{{isShow}}"
+    z-index="20"
+    background="transparent"
+    bind:onPopupClose="saveCancel">
+    <view class="yh-share-card"
+        style="width: {{width}};min-height: {{height}};">
+        <canvas class="yh-share-card-canvans"
+            canvas-id="cardCanvas"
+            style="{{painterStyle}};" />
+        <view class="yh-share-card-loading"
+            style="width: {{width}};min-height: {{height}};{{painterStyle}};{{ isShowBg ? 'opacity: 1;' : 'opacity: 0;'}}">
+            <image src="{{ background || palette.background}}"
+                mode="widthFix"></image>
+        </view>
+        <view class="yh-share-card-btns"
+            style="{{btnStyle}};">
+            <view class="yh-share-card-btn"
+                style="opacity: {{ isShowBg ? 0.7 : 1}};"
+                bindtap='saveCancel'>取消</view>
+            <button open-type="{{openType}}"
+                style="opacity: {{ isShowBg ? 0.7 : 1}};"
+                class="yh-share-card-btn btn-focus"
+                bindtap='savePhoto'>保存到相册</button>
+        </view>
+    </view>
+</oak-popup>

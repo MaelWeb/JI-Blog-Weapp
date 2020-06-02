@@ -31,22 +31,6 @@ Page({
         this.getAllTags();
 
         this.getDate();
-
-        // @ts-ignore
-        wx.cloud
-            .callFunction({
-                // 云函数名称
-                name: "miniCode",
-                // 传给云函数的参数
-                data: {
-                    a: 1,
-                    b: 2,
-                },
-            })
-            .then((res: any) => {
-                console.log(res.result); // 3
-            })
-            .catch(console.error);
     },
     swiperHeight: 300,
     onShow() {},
